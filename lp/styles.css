@@ -1,0 +1,924 @@
+/* ============================================================
+   KD CLEANING SERVICES — Landing Page
+   Sistema visual baseado na referência lilyhousecleaningservice.com
+   adaptado à paleta do logo da KD.
+
+   navy #22306B · royal #2563C9 · sky #6EC1E4 · CTA verde
+   ============================================================ */
+
+:root{
+  --navy:#22306B;
+  --navy-deep:#141C42;
+  --royal:#2563C9;
+  --royal-dark:#1D4FA3;
+  --sky:#6EC1E4;
+  --sky-soft:#EAF4FB;
+
+  --cta:#2CAF22;
+  --cta-hover:#22901A;
+
+  --ink:#16203E;
+  --body:#4E5A72;
+  --muted:#7C879C;
+  --line:#DFE6F0;
+  --bg:#FFFFFF;
+  --bg-soft:#F4F7FB;
+
+  --ok:#16A34A;
+  --err:#D93A3A;
+
+  --radius:10px;
+  --radius-lg:18px;
+  --shadow-sm:0 2px 10px rgba(22,32,62,.06);
+  --shadow:0 10px 34px rgba(22,32,62,.10);
+  --shadow-lg:0 24px 60px rgba(11,18,42,.30);
+  --wrap:1180px;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+html{scroll-behavior:smooth;scroll-padding-top:100px;-webkit-text-size-adjust:100%}
+
+body{
+  font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  color:var(--body);background:var(--bg);
+  font-size:16.5px;line-height:1.7;-webkit-font-smoothing:antialiased;
+  overflow-x:hidden; /* trava qualquer vazamento horizontal no mobile */
+  -webkit-tap-highlight-color:rgba(37,99,201,.15);
+}
+
+img{max-width:100%;height:auto;display:block}
+
+/* Escala de display: quanto maior o texto, mais fechada a entrelinha
+   e o tracking. text-wrap:balance distribui as linhas do título
+   sozinho, o que dispensa <br> fixo e evita linha órfã. */
+h1,h2,h3,h4{color:var(--ink);font-weight:700;text-wrap:balance}
+/* Teto de 3rem calibrado pela largura real da coluna do hero (~540px):
+   acima disso o título de 57 caracteres passa a quebrar em 4 linhas. */
+h1{
+  font-size:clamp(2.05rem,3.7vw,3rem);font-weight:800;
+  line-height:1.08;letter-spacing:-.032em;
+}
+h2{font-size:clamp(1.62rem,3.2vw,2.55rem);line-height:1.14;letter-spacing:-.028em}
+h3{font-size:1.2rem;line-height:1.3;letter-spacing:-.015em}
+h4{line-height:1.3;letter-spacing:-.01em}
+
+p{text-wrap:pretty}
+
+a{color:var(--royal);text-decoration:none}
+a:hover{color:var(--royal-dark)}
+
+:focus-visible{outline:3px solid var(--sky);outline-offset:2px;border-radius:4px}
+
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 24px}
+.narrow{max-width:790px}
+.center{text-align:center}
+
+.section{padding:clamp(58px,7vw,96px) 0}
+
+/* toda dobra fecha com um CTA */
+.section-cta{margin-top:clamp(32px,4vw,44px);text-align:center}
+
+/* Kicker com ornamento de brilho, no lugar do heart da Zeal.
+   O brilho vem do próprio logo da KD. */
+.kicker{
+  display:block;color:var(--sky);font-size:.8rem;font-weight:600;
+  letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px;
+}
+.kicker::after{
+  content:"";display:block;width:92px;height:14px;margin:5px 0 12px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 92 14'%3E%3Cpath d='M0 7h30M62 7h30' stroke='%236EC1E4' stroke-width='1.4' stroke-linecap='round'/%3E%3Cpath d='M46 0.5l2.9 5.2 5.2 1.3-5.2 1.3L46 13.5l-2.9-5.2L37.9 7l5.2-1.3z' fill='%236EC1E4'/%3E%3C/svg%3E") left center/contain no-repeat;
+}
+.section-head .kicker::after,
+.center .kicker::after{margin-left:auto;margin-right:auto}
+.section-head{max-width:700px;margin:0 auto clamp(36px,4.8vw,56px);text-align:center}
+.section-head h2{color:var(--navy)}
+.section-head p{margin-top:16px;font-size:1.04rem;max-width:60ch;margin-left:auto;margin-right:auto}
+
+/* medida de leitura: linha longa demais cansa e derruba a leitura */
+.narrow p{max-width:66ch;margin-left:auto;margin-right:auto}
+
+/* ---------- BOTÕES ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  font-family:inherit;font-weight:600;font-size:.92rem;line-height:1.2;
+  letter-spacing:.03em;
+  padding:15px 30px;border-radius:100px;border:2px solid transparent;
+  cursor:pointer;text-align:center;min-height:48px; /* alvo de toque mínimo */
+  transition:transform .12s ease,background .15s ease,box-shadow .15s ease,color .15s ease;
+}
+.btn:active{transform:translateY(1px)}
+
+.btn-primary{background:var(--cta);color:#fff;box-shadow:0 4px 14px rgba(44,175,34,.30)}
+.btn-primary:hover{background:var(--cta-hover);color:#fff;box-shadow:0 7px 22px rgba(44,175,34,.42)}
+
+.btn-ghost{background:transparent;color:var(--navy);border-color:var(--line)}
+.btn-ghost:hover{background:var(--bg-soft);color:var(--navy);border-color:var(--royal)}
+
+.btn-outline-light{background:transparent;color:#fff;border-color:rgba(255,255,255,.45)}
+.btn-outline-light:hover{background:rgba(255,255,255,.12);color:#fff;border-color:#fff}
+
+.btn-sm{padding:12px 20px;font-size:.82rem}
+.btn-lg{padding:18px 34px;font-size:.98rem}
+.btn-block{display:flex;width:100%}
+
+/* ---------- ANNOUNCE BAR ---------- */
+/* Barra superior com contato, no padrão da Zeal Care */
+.announce{
+  background:linear-gradient(90deg,var(--sky) 0%,var(--royal) 55%,var(--navy) 100%);
+  color:#fff;font-size:.88rem;font-weight:500;padding:9px 0;
+}
+.announce-inner{display:flex;align-items:center;justify-content:center;gap:28px}
+.announce .a-short{display:none}
+.announce-phone{
+  display:inline-flex;align-items:center;gap:7px;
+  color:#fff;font-weight:600;white-space:nowrap;
+}
+.announce-phone:hover{color:#fff;opacity:.85}
+.announce-phone svg{width:15px;height:15px;fill:#fff}
+
+/* ---------- HEADER ---------- */
+.site-header{
+  position:sticky;top:0;z-index:60;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(10px);
+  box-shadow:0 1px 0 var(--line);
+}
+.header-inner{display:flex;align-items:center;gap:28px;min-height:82px}
+.logo img{width:190px;height:auto}
+.header-nav{display:flex;gap:28px;margin-left:auto}
+.header-nav a{color:var(--navy);font-weight:500;font-size:.95rem;position:relative;padding:4px 0}
+.header-nav a::after{
+  content:"";position:absolute;left:0;right:0;bottom:-2px;height:2px;
+  background:var(--sky);transform:scaleX(0);transition:transform .18s ease;
+}
+.header-nav a:hover::after{transform:scaleX(1)}
+.header-actions{display:flex;align-items:center;gap:18px}
+.header-phone{display:inline-flex;align-items:center;gap:7px;color:var(--navy);font-weight:600;font-size:.95rem;white-space:nowrap}
+.header-phone svg{width:17px;height:17px;fill:var(--royal)}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;overflow:hidden;
+  background:linear-gradient(115deg,#141C42 0%,#22306B 48%,#2A3E86 100%);
+  /* +46px no rodapé para a faixa de confiança flutuar por cima */
+  padding:clamp(50px,6vw,84px) 0 clamp(104px,9vw,138px);
+  color:#fff;
+}
+/* IMG 03 — foto de fundo do hero.
+   Degradê e foto na MESMA camada. Não usar opacity aqui nem um
+   segundo overlay por cima: duas camadas escuras se multiplicam
+   e a foto some. Para clarear a foto, baixar os alphas do gradiente. */
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(100deg,
+      rgba(18,25,60,.90) 0%,
+      rgba(22,32,74,.74) 46%,
+      rgba(34,48,107,.50) 100%),
+    url("/images/hero.jpg") center/cover no-repeat;
+}
+.hero-grid{
+  position:relative;z-index:2;
+  display:grid;grid-template-columns:1.02fr .98fr;gap:clamp(30px,4vw,58px);
+  align-items:center; /* coluna de texto centralizada em relação ao card do form */
+}
+.hero-copy{padding-top:0}
+.hero h1{color:#fff;max-width:24ch}
+.accent-text{color:var(--sky);display:inline-block}
+.hero-sub{font-size:clamp(1rem,1.35vw,1.1rem);margin-top:22px;max-width:47ch;color:#C4D2EE;line-height:1.6}
+
+/* Cupom. Sólido e claro de propósito: verde translúcido sobre foto
+   escura não tem contraste suficiente e a oferta passa despercebida. */
+.offer-strip{
+  display:flex;align-items:stretch;gap:0;
+  margin:30px 0 28px;max-width:520px;
+  background:#fff;border-radius:12px;overflow:hidden;
+  box-shadow:0 14px 38px rgba(6,12,32,.34);
+  position:relative;
+}
+.offer-badge{
+  flex-shrink:0;width:104px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  background:var(--cta);color:#fff;
+  font-weight:800;font-size:.82rem;letter-spacing:.14em;line-height:1;
+  padding:16px 8px;
+}
+.offer-badge b{display:block;font-size:1.95rem;letter-spacing:-.02em;margin-bottom:4px}
+
+.offer-text{
+  flex:1;display:flex;flex-direction:column;justify-content:center;
+  padding:14px 18px 14px 22px;
+  border-left:2px dashed rgba(44,175,34,.45);
+}
+.offer-text strong{
+  display:block;color:var(--ink);font-size:1.06rem;font-weight:700;
+  line-height:1.3;margin-bottom:3px;letter-spacing:-.01em;
+}
+.offer-text em{font-style:normal;color:var(--body);font-size:.85rem;line-height:1.45}
+.offer-text .o-short{display:none}
+
+.hero-cta-row{display:flex;gap:13px;flex-wrap:wrap;margin-top:8px}
+.center-row{justify-content:center}
+.hero-micro{margin-top:17px;font-size:.9rem;color:#9FB2DA}
+
+/* ---------- FORM CARD ---------- */
+.form-card{
+  background:#fff;border-radius:var(--radius-lg);
+  box-shadow:var(--shadow-lg);padding:clamp(24px,3vw,34px);
+  position:relative;
+}
+.form-card::before{
+  content:"";position:absolute;inset:0 0 auto 0;height:5px;
+  border-radius:var(--radius-lg) var(--radius-lg) 0 0;
+  background:linear-gradient(90deg,var(--navy),var(--royal),var(--sky));
+}
+.form-head{margin-bottom:22px}
+.form-head h2{font-size:1.5rem;color:var(--navy)}
+.form-head p{margin-top:8px;font-size:.93rem;color:var(--muted)}
+.form-head strong{color:var(--cta)}
+
+/* ---------- passos do formulário ---------- */
+.steps-bar{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.step-dot{
+  width:13px;height:13px;border-radius:50%;flex-shrink:0;
+  background:var(--line);transition:background .25s ease,box-shadow .25s ease;
+}
+.step-dot.is-active{background:var(--cta);box-shadow:0 0 0 4px rgba(44,175,34,.16)}
+.step-line{flex:1;height:3px;border-radius:3px;background:var(--line);overflow:hidden}
+.step-line i{display:block;height:100%;width:0;background:var(--cta);transition:width .3s ease}
+.steps-label{
+  font-size:.78rem;font-weight:600;color:var(--muted);
+  letter-spacing:.02em;margin-bottom:20px;
+}
+
+.form-step{display:none}
+.form-step.is-active{display:block;animation:stepIn .25s ease}
+@keyframes stepIn{from{opacity:0;transform:translateX(8px)}to{opacity:1;transform:none}}
+
+.step-back{
+  display:block;width:100%;margin-top:12px;padding:8px;
+  background:none;border:0;cursor:pointer;
+  font-family:inherit;font-size:.88rem;font-weight:600;color:var(--muted);
+}
+.step-back:hover{color:var(--royal)}
+
+.field{margin-bottom:16px}
+.field label,.label-as-legend{display:block;font-weight:600;font-size:.87rem;color:var(--ink);margin-bottom:7px}
+.optional{color:var(--muted);font-weight:400}
+
+.field input,.field select,.field textarea{
+  width:100%;font-family:inherit;font-size:.98rem;color:var(--ink);
+  padding:13px 15px;background:#fff;
+  border:1.5px solid var(--line);border-radius:6px;
+  transition:border-color .15s ease,box-shadow .15s ease;
+}
+.field textarea{resize:vertical;min-height:82px}
+.field select{appearance:none;cursor:pointer;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237C879C' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 13px center;background-size:17px;padding-right:40px;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  outline:none;border-color:var(--royal);box-shadow:0 0 0 3px rgba(37,99,201,.14);
+}
+.field input::placeholder,.field textarea::placeholder{color:#AFB8C8}
+
+.field-row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+
+.hint{display:block;font-size:.8rem;color:var(--muted);margin-top:6px}
+.err{display:none;font-size:.8rem;color:var(--err);margin-top:6px;font-weight:600}
+.field.invalid .err{display:block}
+.field.invalid input,.field.invalid select{border-color:var(--err)}
+
+.radio-row{display:flex;gap:9px;flex-wrap:wrap}
+.radio-pill{position:relative;flex:1 1 auto;min-width:102px;margin:0}
+.radio-pill input{position:absolute;opacity:0;width:0;height:0}
+.radio-pill span{
+  display:block;text-align:center;padding:12px 10px;
+  font-size:.88rem;font-weight:500;color:var(--body);
+  background:#fff;border:1.5px solid var(--line);border-radius:6px;
+  cursor:pointer;transition:all .15s ease;
+}
+.radio-pill:hover span{border-color:var(--sky)}
+.radio-pill input:checked + span{
+  background:var(--sky-soft);border-color:var(--royal);color:var(--navy);font-weight:600;
+  box-shadow:0 0 0 3px rgba(37,99,201,.12);
+}
+.radio-pill input:focus-visible + span{outline:3px solid var(--sky);outline-offset:2px}
+
+/* opção com desconto: marcada visualmente para a oferta ficar
+   evidente no exato momento da escolha */
+.radio-pill.is-offer span{border-color:rgba(44,175,34,.45);background:rgba(44,175,34,.05)}
+.radio-pill.is-offer span b{
+  display:block;font-size:.72rem;font-weight:700;color:var(--cta);
+  letter-spacing:.03em;margin-top:2px;
+}
+.radio-pill.is-offer input:checked + span{
+  background:rgba(44,175,34,.1);border-color:var(--cta);color:#17610F;
+  box-shadow:0 0 0 3px rgba(44,175,34,.14);
+}
+.radio-pill.is-offer input:checked + span b{color:var(--cta-hover)}
+
+/* aviso condicional sobre a elegibilidade do desconto */
+.service-note{
+  margin-top:11px;padding:11px 14px;border-radius:8px;
+  font-size:.85rem;line-height:1.45;
+}
+.service-note.is-offer{
+  background:rgba(44,175,34,.1);border-left:3px solid var(--cta);color:#1B6415;font-weight:600;
+}
+.service-note.is-info{
+  background:var(--sky-soft);border-left:3px solid var(--sky);color:var(--navy);
+}
+
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+.form-micro{margin-top:12px;font-size:.8rem;color:var(--muted);text-align:center}
+
+/* sinais de confiança colados no botão de envio, que é onde
+   a pessoa hesita antes de entregar o telefone */
+.form-trust{list-style:none;margin-top:16px}
+.form-trust li{
+  position:relative;padding-left:24px;margin-bottom:7px;
+  font-size:.82rem;color:var(--body);line-height:1.45;
+}
+.form-trust li::before{
+  content:"";position:absolute;left:0;top:.3em;width:15px;height:15px;border-radius:50%;
+  background:rgba(44,175,34,.14) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232CAF22' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/10px no-repeat;
+}
+.form-status{margin-top:12px;font-size:.88rem;font-weight:600;color:var(--err);text-align:center}
+.form-status:empty{display:none}
+#form01-submit{margin-top:6px}
+
+.form-success{text-align:center;padding:26px 4px}
+.success-check{width:62px;height:62px;margin:0 auto 18px;border-radius:50%;background:#E7F7EE;display:grid;place-items:center}
+.success-check svg{width:30px;height:30px;fill:none;stroke:var(--ok);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.form-success h3{font-size:1.4rem;margin-bottom:10px;color:var(--navy)}
+.form-success p{margin-bottom:20px}
+
+/* ---------- TRUST BAR ---------- */
+/* Faixa arredondada que flutua sobre o fim do hero, como na Zeal Care */
+.trustbar{background:transparent;padding:0;border:0;position:relative;z-index:5;margin-top:-46px}
+/* cinco colunas com gap menor: com a descrição completa de cada tópico,
+   as quatro colunas antigas espremiam o texto em 5 e 6 linhas */
+.trust-grid{
+  display:grid;grid-template-columns:repeat(5,1fr);gap:16px;
+  background:linear-gradient(90deg,var(--sky) 0%,var(--royal) 52%,var(--navy) 100%);
+  border-radius:20px;padding:28px 26px;
+  box-shadow:0 18px 44px rgba(22,32,62,.24);
+}
+.trust-item{text-align:center;padding:0 2px}
+.trust-ico{
+  display:grid;place-items:center;width:46px;height:46px;margin:0 auto 11px;
+  border-radius:50%;background:rgba(255,255,255,.2);
+  border:1.5px solid rgba(255,255,255,.4);
+}
+.trust-ico svg{width:22px;height:22px;fill:#fff}
+.trust-item strong{display:block;color:#fff;font-size:1rem;font-weight:700;
+  line-height:1.28;margin-bottom:5px;text-wrap:balance}
+.trust-item > span:last-child{color:rgba(255,255,255,.86);font-size:.82rem;line-height:1.45;display:block}
+
+/* ---------- PROMISE ---------- */
+/* renomeada de .problem para .promise junto com a troca de conteúdo:
+   nome de classe que contradiz o texto engana a próxima edição */
+.promise{background:#fff}
+.promise h2{color:var(--navy);margin-bottom:26px}
+.promise p{font-size:1.06rem;margin-bottom:18px}
+.lead-out{
+  font-weight:600;color:var(--ink);font-size:1.14rem!important;line-height:1.55;
+  margin:30px auto 34px!important;padding-top:26px;border-top:2px solid var(--line);
+  max-width:52ch;
+}
+
+/* ---------- SERVICES ---------- */
+.services{background:var(--bg-soft)}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.card{
+  background:#fff;border-radius:var(--radius-lg);overflow:hidden;
+  display:flex;flex-direction:column;box-shadow:var(--shadow-sm);
+  transition:box-shadow .2s ease,transform .2s ease;
+}
+.card:hover{box-shadow:var(--shadow);transform:translateY(-4px)}
+.card-media{aspect-ratio:3/2;overflow:hidden;background:var(--sky-soft)}
+.card-media img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.card:hover .card-media img{transform:scale(1.04)}
+.card-body{padding:clamp(24px,2.6vw,32px);display:flex;flex-direction:column;flex:1}
+/* selo de oferta: só no card de regular cleaning */
+.card-offer{
+  display:inline-block;align-self:flex-start;
+  background:var(--cta);color:#fff;
+  font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:7px 13px;border-radius:100px;margin-bottom:12px;
+}
+/* nota de preço do deep cleaning, sem qualquer menção a desconto */
+.card-pricing{
+  margin-top:14px;padding:12px 15px;
+  background:var(--sky-soft);border-radius:8px;
+  font-size:.9rem;color:var(--navy);font-weight:500;
+}
+.card-body h3{color:var(--navy);font-size:1.42rem;margin-bottom:4px}
+.card-lede{font-size:1.02rem;font-weight:600;color:var(--sky);margin-bottom:16px}
+.card-body > p{font-size:.97rem}
+.card-sub{
+  font-weight:700;color:var(--ink);margin:22px 0 12px;font-size:.78rem;
+  letter-spacing:.1em;text-transform:uppercase;
+}
+.check-list{list-style:none;margin-bottom:28px}
+.check-list li{position:relative;padding-left:28px;margin-bottom:10px;font-size:.95rem;line-height:1.5}
+.check-list li::before{
+  content:"";position:absolute;left:0;top:.46em;width:16px;height:16px;border-radius:50%;
+  background:var(--sky-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563C9' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/11px no-repeat;
+}
+.card-body .btn{margin-top:auto}
+.services-banner{
+  margin-top:32px;text-align:center;padding:20px;
+  background:rgba(44,175,34,.09);border:1.5px solid rgba(44,175,34,.4);border-radius:8px;
+  font-size:1.04rem;color:#2C4A28;
+}
+.services-banner strong{color:#1B5416}
+
+/* ---------- RESULTS ---------- */
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-bottom:38px}
+.gallery figure{
+  position:relative;aspect-ratio:1/1;overflow:hidden;border-radius:var(--radius);
+  background:var(--sky-soft);box-shadow:var(--shadow-sm);
+}
+.gallery img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease}
+.gallery figure:hover img{transform:scale(1.06)}
+.gallery figcaption{
+  position:absolute;left:0;right:0;bottom:0;
+  padding:26px 16px 14px;
+  background:linear-gradient(to top,rgba(20,28,66,.85),transparent);
+  color:#fff;font-size:.92rem;font-weight:600;letter-spacing:.01em;
+}
+
+/* ---------- WHY ---------- */
+.why{background:var(--bg-soft)}
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.why-item{
+  padding:32px 26px;background:#fff;border-radius:var(--radius-lg);
+  text-align:center;box-shadow:var(--shadow-sm);
+  transition:transform .2s ease,box-shadow .2s ease;
+}
+.why-item:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+.why-ico{display:grid;place-items:center;width:58px;height:58px;margin:0 auto 18px;border-radius:50%;background:var(--navy)}
+.why-ico svg{width:27px;height:27px;fill:#fff}
+.why-item h3{margin-bottom:12px;color:var(--navy);font-size:1.06rem;line-height:1.32;min-height:2.64em}
+.why-item p{font-size:.93rem;line-height:1.62}
+
+/* ---------- REFERRAL ---------- */
+/* .referral removida junto com a seção da indicação da Zeal Care
+   (11/08/2026). Se a seção voltar, o estilo era:
+   .referral{background:var(--bg-soft);padding:clamp(46px,5vw,66px) 0}
+   .referral h2{color:var(--navy);margin-bottom:16px}
+   .referral p{font-size:1.04rem} */
+
+/* ---------- HOW ---------- */
+.how{background:linear-gradient(180deg,#DEEDF7 0%,#EFF6FB 100%)}
+.steps{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-bottom:40px}
+.steps li{background:#fff;padding:34px 28px;border-radius:var(--radius-lg);text-align:center;box-shadow:var(--shadow-sm)}
+.step-num{
+  display:grid;place-items:center;width:52px;height:52px;margin:0 auto 18px;
+  background:var(--navy);color:#fff;border-radius:50%;font-weight:700;font-size:1.2rem;
+}
+.steps h3{margin-bottom:10px;color:var(--navy);font-size:1.1rem}
+.steps p{font-size:.95rem}
+
+/* ---------- OFFER BANNER ---------- */
+.offer-block{padding:clamp(20px,3vw,40px) 0 clamp(56px,7vw,90px);background:#fff}
+.offer-banner{
+  position:relative;
+  background:linear-gradient(135deg,var(--navy-deep) 0%,var(--navy) 50%,#2A3E86 100%);
+  border:2px dashed rgba(110,193,228,.55);border-radius:var(--radius-lg);
+  padding:clamp(32px,4vw,56px);color:#fff;overflow:hidden;
+}
+.offer-bubbles{position:absolute;inset:0;pointer-events:none}
+.offer-bubbles span{position:absolute;border-radius:50%;background:rgba(110,193,228,.16)}
+.offer-bubbles span:nth-child(1){width:130px;height:130px;right:-30px;top:-40px}
+.offer-bubbles span:nth-child(2){width:70px;height:70px;right:110px;top:36px}
+.offer-bubbles span:nth-child(3){width:180px;height:180px;left:-70px;bottom:-70px}
+.offer-inner{position:relative;display:grid;grid-template-columns:1.08fr .92fr;gap:clamp(30px,4vw,52px);align-items:center}
+.offer-kicker{
+  display:inline-block;background:rgba(44,175,34,.2);color:#9FE59A;
+  border:1px solid rgba(44,175,34,.55);
+  font-size:.78rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;
+  padding:7px 14px;border-radius:100px;margin-bottom:18px;
+}
+.offer-main h2{color:#fff;font-size:clamp(1.9rem,3.6vw,2.85rem);margin-bottom:18px}
+.offer-main p{color:#C3D2F0;font-size:1.03rem}
+.offer-side{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);border-radius:var(--radius);padding:clamp(24px,2.6vw,30px)}
+.offer-list{list-style:none;margin-bottom:24px}
+.offer-list li{position:relative;padding-left:32px;margin-bottom:13px;color:#E6EEFF;font-size:.97rem}
+.offer-list li::before{
+  content:"";position:absolute;left:0;top:.34em;width:20px;height:20px;border-radius:50%;
+  background:var(--cta) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/13px no-repeat;
+}
+.offer-micro{margin-top:14px;font-size:.83rem;color:#A5B7DE;text-align:center}
+
+/* ---------- AREA ---------- */
+.area{background:var(--bg-soft)}
+.area-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(32px,4.5vw,64px);align-items:center}
+.area-copy h2{color:var(--navy);margin-bottom:18px}
+.area-copy > p{font-size:1.04rem;max-width:50ch}
+.area-note{
+  margin-top:20px;margin-bottom:26px;padding:16px 20px;
+  background:#fff;border-left:3px solid var(--sky);border-radius:0 10px 10px 0;
+  font-size:.95rem;color:var(--body);max-width:50ch;
+}
+
+/* card com as cidades: dá peso visual ao lado direito, que antes
+   era só uma fileira de chips solta no meio do vazio */
+.area-card{
+  background:linear-gradient(150deg,var(--navy-deep) 0%,var(--navy) 55%,#2A3E86 100%);
+  border-radius:var(--radius-lg);padding:clamp(26px,3vw,34px);
+  box-shadow:0 20px 48px rgba(22,32,62,.22);
+  position:relative;overflow:hidden;
+}
+/* malha de pontos ao fundo, sugerindo mapa sem fingir precisão */
+.area-card::before{
+  content:"";position:absolute;inset:0;opacity:.5;
+  background-image:radial-gradient(rgba(110,193,228,.22) 1.2px,transparent 1.2px);
+  background-size:22px 22px;
+}
+.area-card-head{
+  position:relative;display:flex;align-items:center;gap:9px;
+  padding-bottom:16px;margin-bottom:18px;
+  border-bottom:1px solid rgba(255,255,255,.16);
+  color:var(--sky);font-size:.8rem;font-weight:600;
+  letter-spacing:.14em;text-transform:uppercase;
+}
+.area-card-head svg{width:17px;height:17px;fill:var(--sky);flex-shrink:0}
+
+.area-county{position:relative;margin-bottom:20px}
+.area-county:last-of-type{margin-bottom:0}
+.area-county h3{
+  color:var(--sky);font-size:.74rem;font-weight:700;
+  letter-spacing:.13em;text-transform:uppercase;margin-bottom:11px;
+}
+
+/* duas colunas: com 21 cidades, uma por linha deixaria o card muito
+   mais alto que a coluna de texto ao lado */
+.area-list{
+  position:relative;list-style:none;
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 18px;
+}
+.area-list li{
+  position:relative;padding-left:20px;
+  color:#fff;font-size:.95rem;font-weight:600;line-height:1.35;
+}
+/* a divisória entre linhas saiu junto com o CEP: em duas colunas ela
+   cortaria os nomes no meio em vez de separar registros */
+.area-list li::before{
+  content:"";position:absolute;left:0;top:.42em;width:8px;height:8px;
+  border-radius:50%;background:var(--cta);
+  box-shadow:0 0 0 4px rgba(44,175,34,.22);
+}
+
+/* fecho da lista: a cobertura ampla que a cliente pediu, sem virar
+   mais um item de lista e sem competir com os nomes de cidade */
+.area-all{
+  position:relative;margin-top:20px;
+  display:flex;align-items:center;gap:10px;
+  padding:12px 15px;border-radius:var(--radius);
+  background:rgba(110,193,228,.13);border:1px solid rgba(110,193,228,.32);
+  color:#fff;font-size:.92rem;font-weight:600;
+}
+.area-all svg{width:17px;height:17px;flex-shrink:0;fill:var(--sky)}
+
+.area-card-foot{
+  position:relative;margin-top:22px;padding-top:17px;
+  border-top:1px solid rgba(255,255,255,.16);
+  color:#9FB2DA;font-size:.87rem;line-height:1.55;
+}
+.area-card-foot strong{display:block;color:#fff;font-weight:600;margin-bottom:2px}
+.area-card-foot a{color:var(--sky);font-weight:600;white-space:nowrap}
+.area-card-foot a:hover{color:#fff}
+
+/* ---------- FAQ ---------- */
+.faq{background:#fff}
+.qa{border:1px solid var(--line);border-radius:var(--radius);margin-bottom:11px;background:var(--bg-soft);overflow:hidden;counter-increment:qa}
+.qa[open]{background:#fff;border-color:var(--sky);box-shadow:var(--shadow-sm)}
+.qa summary{
+  list-style:none;cursor:pointer;padding:19px 56px 19px 22px;position:relative;
+  font-weight:600;color:var(--navy);font-size:1rem;
+}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary::before{content:counter(qa) ". ";color:var(--sky);font-weight:700}
+.qa summary:hover{color:var(--royal)}
+.qa summary::after{
+  content:"+";position:absolute;right:22px;top:50%;transform:translateY(-50%);
+  font-size:1.5rem;font-weight:400;color:var(--sky);line-height:1;
+}
+.qa[open] summary::after{content:"\2212"}
+.qa-body{padding:0 22px 21px}
+.qa-body p{font-size:.98rem}
+.faq{counter-reset:qa}
+.faq-cta{margin-top:34px}
+
+/* ---------- CONTACT ---------- */
+/* Fecho da página. Antes as duas colunas repetiam o mesmo título e o
+   mesmo CTA. Agora cada uma tem uma função: esquerda recapitula valor
+   e derruba a última objeção, direita concentra a ação. */
+.contact{
+  padding:clamp(58px,7vw,96px) 0;border-top:1px solid var(--line);
+  background:
+    radial-gradient(900px 420px at 88% 12%,rgba(110,193,228,.16),transparent 62%),
+    var(--bg-soft);
+}
+.contact-grid{display:grid;grid-template-columns:1.06fr .94fr;gap:clamp(32px,4.5vw,64px);align-items:center}
+.contact-copy h2{color:var(--navy);font-size:clamp(1.85rem,3.5vw,2.7rem);margin-bottom:16px}
+.contact-copy > p{font-size:1.04rem;margin-bottom:26px;max-width:52ch}
+
+/* recapitulação dos 4 argumentos que fecham a venda */
+.recap{list-style:none;margin-bottom:28px;border-left:3px solid var(--sky);padding-left:22px}
+.recap li{
+  position:relative;margin-bottom:15px;font-size:.95rem;line-height:1.55;
+  color:var(--body);max-width:50ch;
+}
+.recap li:last-child{margin-bottom:0}
+.recap strong{color:var(--ink);font-weight:650}
+
+.contact-list{list-style:none;display:flex;gap:26px;flex-wrap:wrap}
+.contact-list li{display:flex;align-items:center;gap:9px;font-size:.98rem;color:var(--ink)}
+.contact-list svg{width:18px;height:18px;fill:var(--royal);flex-shrink:0}
+.contact-list a{color:var(--ink);font-weight:650}
+.contact-list a:hover{color:var(--royal)}
+
+/* card de ação: um único caminho, sem botão concorrente */
+.cta-card{
+  background:#fff;border-radius:var(--radius-lg);
+  padding:clamp(26px,2.6vw,34px) clamp(22px,2.4vw,30px) clamp(22px,2.4vw,28px);
+  box-shadow:0 22px 56px rgba(22,32,62,.15);
+  position:relative;overflow:hidden;
+}
+.cta-card::before{
+  content:"";position:absolute;inset:0 0 auto 0;height:5px;
+  border-radius:var(--radius-lg) var(--radius-lg) 0 0;
+  background:linear-gradient(90deg,var(--navy),var(--royal),var(--sky));
+}
+.cta-head{text-align:center;padding-bottom:22px;border-bottom:1px solid var(--line)}
+.cta-badge{
+  display:inline-block;background:rgba(44,175,34,.11);color:#1B7A15;
+  font-weight:700;font-size:.76rem;letter-spacing:.02em;
+  padding:6px 14px;border-radius:100px;margin-bottom:14px;
+}
+.cta-card h3{font-size:1.7rem;color:var(--navy);margin-bottom:9px;letter-spacing:-.028em}
+.cta-head p{font-size:.94rem;max-width:36ch;margin:0 auto;line-height:1.55}
+
+/* substância no lugar do vazio: os três motivos que resolvem
+   a hesitação exatamente no ponto do clique */
+.cta-list{list-style:none;margin:22px 0 24px}
+.cta-list li{
+  position:relative;padding-left:30px;margin-bottom:12px;
+  font-size:.93rem;line-height:1.5;color:var(--body);
+}
+.cta-list li:last-child{margin-bottom:0}
+.cta-list li::before{
+  content:"";position:absolute;left:0;top:.16em;width:19px;height:19px;border-radius:50%;
+  background:var(--cta) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/12px no-repeat;
+}
+
+/* telefone como link, não como botão: dois botões lado a lado
+   dividem a atenção e derrubam o clique no principal */
+.cta-terms{
+  margin-top:12px;font-size:.8rem;color:var(--muted);text-align:center;
+}
+.cta-phone{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  margin-top:10px;padding:10px 12px;min-height:44px;
+  color:var(--muted);font-size:.9rem;font-weight:600;
+}
+.cta-phone svg{width:16px;height:16px;fill:var(--royal)}
+.cta-phone:hover{color:var(--royal)}
+
+/* ---------- FOOTER ---------- */
+.site-footer{background:var(--navy-deep);color:#A9B8DC;padding:52px 0 0;font-size:.94rem}
+.footer-inner{display:flex;flex-direction:column;align-items:center;text-align:center}
+
+/* logo branco aplicado direto no fundo escuro; a pílula branca que existia
+   aqui era gambiarra da versão colorida e não é mais necessária */
+.footer-logo{width:190px}
+.footer-tag{margin-top:18px;color:#A9B8DC;max-width:38ch}
+
+.footer-phone{
+  display:inline-flex;align-items:center;gap:9px;margin-top:16px;
+  color:#fff;font-size:1.22rem;font-weight:700;letter-spacing:-.01em;
+}
+.footer-phone svg{width:19px;height:19px;fill:var(--sky)}
+.footer-phone:hover{color:var(--sky)}
+
+.footer-links{
+  display:flex;flex-wrap:wrap;justify-content:center;gap:8px 26px;
+  margin-top:26px;
+}
+.footer-links a{color:#A9B8DC;font-weight:500;font-size:.95rem}
+.footer-links a:hover{color:var(--sky)}
+
+.footer-area{margin-top:22px;max-width:56ch;font-size:.88rem;color:#8496C2;line-height:1.6}
+
+.footer-bottom{
+  width:100%;margin-top:34px;
+  border-top:1px solid rgba(255,255,255,.12);
+  padding:20px 0 26px;
+  display:flex;flex-direction:column;align-items:center;gap:6px;
+}
+.footer-bottom p{font-size:.83rem;color:#8496C2}
+.footer-bottom strong{color:#fff}
+
+/* ---------- MOBILE BAR ---------- */
+.mobile-bar{display:none}
+
+/* ============================================================
+   RESPONSIVO
+   ============================================================ */
+@media (max-width:1080px){
+  .why-grid{grid-template-columns:1fr 1fr}
+  /* 5 colunas abaixo disso deixam a descrição em 8+ linhas: 3+2 lê melhor */
+  .trust-grid{grid-template-columns:repeat(3,1fr);gap:22px}
+}
+
+@media (max-width:980px){
+  /* Coluna única: degradê vertical. Alphas baixos de propósito para a
+     foto continuar visível; a legibilidade do texto branco é garantida
+     pelo text-shadow abaixo, não por escurecer o fundo até sumir. */
+  .hero-bg{
+    background:
+      linear-gradient(180deg,
+        rgba(15,21,50,.80) 0%,
+        rgba(19,27,64,.66) 48%,
+        rgba(26,38,88,.56) 100%),
+      url("/images/hero.jpg") center/cover no-repeat;
+  }
+  .hero h1,.hero-sub{text-shadow:0 2px 14px rgba(6,10,28,.6)}
+  .hero-grid{grid-template-columns:1fr;gap:38px}
+  .hero-sub{max-width:none}
+  .offer-inner,.contact-grid,.area-grid{grid-template-columns:1fr;gap:34px}
+  .steps{grid-template-columns:1fr}
+  .cards{grid-template-columns:1fr}
+  .trust-grid{grid-template-columns:1fr 1fr;gap:24px}
+  .gallery{grid-template-columns:1fr 1fr}
+  .header-nav{display:none}
+}
+
+/* ============================================================
+   MOBILE — a maior parte do tráfego é Google Ads no celular,
+   operado com um polegar só. Regras que valem aqui:
+   · alvo de toque nunca abaixo de 48px
+   · botão principal sempre 100% da largura
+   · input com fonte >= 16px, senão o iOS dá zoom ao focar
+   · ação principal sempre alcançável na metade de baixo da tela
+   ============================================================ */
+@media (max-width:640px){
+  body{font-size:16px}
+  .wrap{padding:0 18px}
+
+  /* uma linha só: a versão longa quebrava em duas e roubava
+     ~20px da primeira dobra */
+  .announce{font-size:.74rem;padding:8px 0;line-height:1.35}
+  .announce .a-full{display:none}
+  .announce .a-short{display:inline}
+  .header-actions .btn{display:none}
+  .header-inner{min-height:64px;gap:12px}
+  .logo img{width:150px}
+  /* telefone vira alvo de toque de verdade, não texto clicável */
+  .header-phone{
+    margin-left:auto;font-size:.88rem;
+    min-height:48px;padding:0 12px;border-radius:8px;
+    background:var(--sky-soft);
+  }
+
+  /* ---- primeira dobra: foto + título + desconto + botão ----
+     Alturas calibradas para caber tudo acima da linha de corte de um
+     iPhone 14 (~560px úteis depois da barra do Safari, do announce
+     e do header). Cada bloco abaixo foi encolhido para isso. */
+  .hero{padding-top:26px;padding-bottom:74px}
+  .trustbar{margin-top:-42px}
+  .trust-grid{padding:24px 20px;border-radius:16px}
+  .announce-inner{gap:0}
+  .announce-phone{display:none} /* já existe no header e na barra fixa */
+  .hero h1{font-size:1.92rem;line-height:1.12;max-width:none}
+  .hero-sub{font-size:.95rem;line-height:1.5;margin-top:14px}
+
+  .offer-strip{max-width:none;margin:18px 0 16px}
+  .offer-badge{width:80px;font-size:.68rem;letter-spacing:.1em;padding:12px 8px}
+  .offer-badge b{font-size:1.45rem;margin-bottom:2px}
+  .offer-text{padding:11px 13px 11px 15px}
+  .offer-text strong{font-size:.95rem;line-height:1.25}
+  .offer-text em{font-size:.78rem;line-height:1.4}
+  /* versão curta da oferta, para a dobra não estourar no celular */
+  .offer-text .o-full{display:none}
+  .offer-text .o-short{display:block}
+
+  .hero-cta-row{flex-direction:column;gap:10px;margin-top:0}
+  .hero-cta-row .btn{width:100%}
+  /* o botão de ligar já vive na barra fixa inferior: repetir aqui
+     só empurrava o CTA principal para fora da primeira dobra */
+  .hero-cta-row .btn-outline-light{display:none}
+  .hero-micro{margin-top:12px;font-size:.82rem}
+
+  /* ---- formulário ---- */
+  .form-card{padding:22px 18px}
+  .field-row{grid-template-columns:1fr}
+  .field{margin-bottom:15px}
+  /* 16px trava o zoom automático do iOS no foco do campo */
+  .field input,.field select,.field textarea{
+    font-size:16px;padding:14px 15px;min-height:52px;
+  }
+  .field textarea{min-height:88px}
+  .radio-pill{flex:1 1 100%}
+  .radio-pill span{padding:15px 12px;font-size:.95rem;min-height:52px;display:flex;align-items:center;justify-content:center}
+  .step-back{padding:14px;min-height:48px}
+  .steps-label{font-size:.76rem}
+
+  /* ---- CTA de seção ocupa a largura toda ---- */
+  .section-cta .btn,
+  .card-body .btn,
+  .how .center .btn,
+  .results .center .btn,
+  .faq-cta .btn,
+  .promise .btn{width:100%}
+  .section-cta{margin-top:30px}
+
+  .trust-grid{grid-template-columns:1fr;gap:20px}
+  .trust-item{
+    display:grid;grid-template-columns:46px 1fr;grid-template-rows:auto auto;
+    gap:2px 14px;text-align:left;align-items:center;
+  }
+  .trust-ico{grid-row:1/3;margin:0}
+  .trust-item strong{align-self:end}
+  .trust-item > span:last-child{align-self:start}
+
+  .why-grid{grid-template-columns:1fr}
+  .why-item{padding:26px 22px}
+  .why-item h3{min-height:0}
+  .gallery{grid-template-columns:1fr 1fr;gap:10px}
+  .gallery figcaption{padding:20px 10px 10px;font-size:.8rem}
+
+  /* alvo de toque maior no acordeão */
+  .qa summary{padding:18px 50px 18px 18px;font-size:.97rem;min-height:56px;display:flex;align-items:center}
+  .qa-body{padding:0 18px 18px}
+
+  .area-copy .btn{width:100%}
+  .area-note{padding:14px 16px;font-size:.9rem}
+  .area-card{padding:24px 20px}
+  /* "St. Petersburg" e "Wesley Chapel" ainda cabem em duas colunas
+     aqui; só encurto o respiro lateral */
+  .area-list{gap:9px 12px}
+  .area-list li{font-size:.9rem;padding-left:18px}
+  .area-all{font-size:.87rem;padding:11px 13px}
+
+  .recap{padding-left:18px;margin-bottom:24px}
+  .recap li{font-size:.92rem;margin-bottom:14px}
+  .contact-list{gap:8px 22px}
+  .cta-card{padding:24px 18px 20px}
+  .cta-card h3{font-size:1.45rem}
+  .cta-head{padding-bottom:18px}
+  .cta-list{margin:18px 0 20px}
+  .cta-list li{font-size:.9rem;margin-bottom:11px}
+
+  .footer-logo{width:160px}
+  .footer-links{gap:8px 18px;margin-top:22px}
+  .footer-phone{font-size:1.14rem}
+  .footer-area{font-size:.84rem}
+
+  /* ---- barra fixa: sempre no alcance do polegar ---- */
+  body{padding-bottom:calc(78px + env(safe-area-inset-bottom))}
+  .mobile-bar{
+    display:grid;grid-template-columns:auto 1fr;gap:10px;
+    position:fixed;left:0;right:0;bottom:0;z-index:80;
+    padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+    background:#fff;border-top:1px solid var(--line);
+    box-shadow:0 -4px 20px rgba(22,32,62,.14);
+  }
+  .mb-call{
+    display:inline-flex;align-items:center;justify-content:center;gap:7px;
+    min-height:52px;padding:0 20px;border-radius:8px;
+    background:var(--navy);color:#fff;font-weight:600;font-size:.92rem;
+  }
+  .mb-call svg{width:19px;height:19px;fill:#fff}
+  .mb-call:hover{color:#fff}
+  .mb-quote{
+    display:flex;align-items:center;justify-content:center;
+    min-height:52px;padding:0 10px;border-radius:8px;
+    background:var(--cta);color:#fff;font-weight:700;font-size:.86rem;
+    text-align:center;letter-spacing:.02em;line-height:1.25;
+  }
+  .mb-quote:hover{color:#fff}
+}
+
+/* telas bem estreitas (360px e abaixo) */
+@media (max-width:380px){
+  .wrap{padding:0 15px}
+  .offer-badge{width:74px}
+  .offer-badge b{font-size:1.35rem}
+  .mb-quote{font-size:.78rem}
+  .mb-call{padding:0 15px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+
+@media print{
+  .site-header,.mobile-bar,.announce{display:none}
+}

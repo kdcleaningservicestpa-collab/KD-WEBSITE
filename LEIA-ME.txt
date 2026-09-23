@@ -1,0 +1,117 @@
+================================================================
+KD CLEANING SERVICES — pasta pronta para a Hostinger
+Gerada em 14/08/2026 · logo e tipografia atualizadas em 17/08/2026
+================================================================
+
+O QUE FAZER
+-----------
+Copiar TODO o conteudo desta pasta para dentro do public_html
+do dominio kdcleaningservices.com.
+
+Os arquivos ficam soltos dentro do public_html, NAO dentro de
+uma subpasta chamada "hostinger-public_html".
+
+No Gerenciador de Arquivos da Hostinger, ligar a opcao
+"Mostrar arquivos ocultos" ANTES de subir: o .htaccess comeca
+com ponto e nao aparece na listagem sem isso.
+
+
+ESTRUTURA QUE VAI PARA O SERVIDOR
+---------------------------------
+public_html/
+├── .htaccess              configuracao do servidor
+├── index.html             HOME  -> kdcleaningservices.com/
+├── home.css
+├── home.js
+├── logo-horizontal.png    logo do cabecalho das duas paginas
+├── logo-white.png         logo do rodape (fundo escuro)
+├── Logo.png               logo empilhado colorido (nome antigo, arte nova)
+├── favicon.ico            \
+├── favicon.png             |  icones do navegador
+├── apple-touch-icon.png   /
+├── og-image.png           imagem de previa de link (WhatsApp, Facebook)
+├── estimate.css           estilo do questionario de orcamento
+├── estimate.js            logica do questionario (5 passos)
+├── robots.txt
+├── sitemap.xml
+├── images/                imagens compartilhadas pelas paginas
+├── estimate/
+│   └── index.html         ORCAMENTO -> kdcleaningservices.com/estimate/
+├── thanks/
+│   └── index.html         pagina de obrigado -> /thanks/
+└── lp/
+    ├── index.html         LANDING PAGE -> kdcleaningservices.com/lp/
+    ├── styles.css
+    └── script.js
+
+A pasta thanks/ NAO e opcional: os tres formularios redirecionam
+para /thanks/ depois de enviar. Sem ela o visitante cai na regra
+de erro 404 do .htaccess e volta para a home sem entender.
+
+ATENCAO AO NOME "Logo.png": o L e maiusculo e o servidor da
+Hostinger diferencia maiusculas de minusculas. Nao renomear.
+
+
+ENDERECOS DEPOIS DE SUBIR
+-------------------------
+kdcleaningservices.com/           -> home
+kdcleaningservices.com/estimate/  -> questionario de orcamento
+kdcleaningservices.com/lp/        -> landing page do anuncio
+lp.kdcleaningservices.com/     -> redireciona para /lp/  (ver nota 2)
+
+
+ANTES DE SUBIR — 3 PENDENCIAS
+-----------------------------
+1) FALTAM 3 IMAGENS DA HOME
+   images/commercial-cleaning.jpg
+   images/office-cleaning.jpg
+   images/window-cleaning.jpg
+   Sem elas, 3 dos 5 cards de servico da home aparecem quebrados.
+   A LP nao e afetada: ela nao usa essas imagens.
+
+2) SSL DO DOMINIO RAIZ
+   O .htaccess forca HTTPS. O certificado que existe hoje e do
+   subdominio lp. e NAO cobre o dominio raiz.
+   Ativar em hPanel -> Seguranca -> SSL e esperar o cadeado
+   aparecer. Se subir antes, o site entra em loop de redirect:
+   nesse caso, comentar as 3 linhas do bloco 2 do .htaccess.
+
+3) REDIRECT DO SUBDOMINIO
+   A regra do bloco 1 do .htaccess so funciona se o subdominio
+   lp. apontar para ESTA MESMA pasta. Se ele tiver public_html
+   proprio, colocar la o arquivo da pasta redirect-dominio-raiz,
+   trocando o destino para /lp/.
+
+
+DEPOIS DE SUBIR — TESTAR
+------------------------
+[ ] kdcleaningservices.com/ abre a home com cadeado
+[ ] kdcleaningservices.com/lp/ abre a landing page
+[ ] http:// (sem s) pula sozinho para https://
+[ ] www. pula sozinho para sem www
+[ ] as imagens carregam nas DUAS paginas
+[ ] o logo novo aparece no cabecalho E no rodape das duas
+[ ] o icone da aba do navegador e a casinha KD
+[ ] kdcleaningservices.com/estimate/ abre o formulario inteiro,
+    com os 4 blocos visiveis ao mesmo tempo (sem etapas)
+[ ] no /estimate/, escolher "Office Cleaning" no bloco 1 troca as
+    perguntas do bloco 2 (some quartos, aparece tipo de espaco)
+[ ] preencher um formulario leva para /thanks/
+[ ] o e-mail do teste chegou em kdcleaningservicestpa@gmail.com
+    (conferir tambem a caixa de spam na primeira vez)
+[ ] botao de telefone abre o discador no celular
+
+Abrir sempre com Ctrl+Shift+R na primeira conferida: o CSS mudou
+e cache antigo mostra a pagina quebrada.
+
+
+OBSERVACAO SOBRE RASTREAMENTO
+-----------------------------
+O Google Tag Manager foi REMOVIDO das duas paginas em 14/08/2026,
+por causa da reprovacao "Compromised Site" no Google Ads.
+Nenhuma conversao esta sendo medida no momento.
+
+A LP nao carrega nenhum script de terceiro.
+A HOME ainda carrega dois, por causa do mapa da area de
+atendimento: unpkg.com (biblioteca Leaflet) e os tiles do mapa.
+Se a home virar destino de anuncio, rever isso antes.

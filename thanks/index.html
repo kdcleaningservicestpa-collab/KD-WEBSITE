@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- noindex é obrigatório: página de agradecimento indexada aparece na
+     busca, gente cai nela sem ter preenchido nada e, se ela for usada
+     como conversão de destino no Google Ads, infla o número de leads.
+     Não entra no sitemap.xml pelo mesmo motivo. -->
+<meta name="robots" content="noindex, nofollow">
+<title>Thank You | KD Cleaning Services</title>
+
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<!-- caminho absoluto: esta página mora em /thanks/, a pasta fonts/ na raiz -->
+<link rel="stylesheet" href="/fonts/fonts.css">
+
+<!-- CSS inline de propósito: esta página vai nos DOIS pacotes de deploy
+     (raiz do domínio e, se voltar a existir, subdomínio da LP). Depender
+     de home.css ou styles.css quebraria num deles. -->
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --navy:#16224B; --navy-d:#0C1330; --royal:#2563C9; --sky:#29A9E0;
+    --acc:#2CAF22; --acc-d:#22901A; --ink:#11182F; --body:#54607A; --line:#E1E7F0;
+  }
+  html{-webkit-text-size-adjust:100%}
+  body{
+    font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    color:var(--body);font-size:16.5px;line-height:1.72;
+    background:var(--navy-d);
+    -webkit-font-smoothing:antialiased;
+    min-height:100vh;display:flex;align-items:center;justify-content:center;
+    padding:40px 20px;
+  }
+  .card{
+    background:#fff;border-radius:18px;max-width:620px;width:100%;
+    padding:clamp(34px,6vw,56px) clamp(24px,5vw,52px);text-align:center;
+    box-shadow:0 30px 70px rgba(6,11,30,.5);
+  }
+  .logo{width:190px;max-width:60%;height:auto;display:block;margin:0 auto 30px}
+  .check{
+    width:74px;height:74px;margin:0 auto 24px;border-radius:50%;
+    display:grid;place-items:center;background:rgba(44,175,34,.12);
+  }
+  .check svg{width:38px;height:38px;fill:none;stroke:var(--acc);stroke-width:3.4;
+    stroke-linecap:round;stroke-linejoin:round}
+  h1{
+    font-family:'Nunito',sans-serif;font-weight:900;color:var(--ink);
+    font-size:clamp(1.7rem,4.4vw,2.4rem);line-height:1.15;letter-spacing:-.014em;
+    text-wrap:balance;margin-bottom:14px;
+  }
+  .lead{color:var(--body);font-size:1.02rem;text-wrap:pretty;margin-bottom:8px}
+  .note{
+    margin-top:26px;padding:16px 20px;border-radius:12px;
+    background:#F4F8FC;border:1px solid var(--line);
+    font-size:.93rem;color:var(--navy);text-wrap:pretty;
+  }
+  .note strong{color:var(--royal)}
+  .acts{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:30px}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:9px;
+    font-family:inherit;font-size:.82rem;font-weight:700;line-height:1.15;
+    letter-spacing:.06em;text-transform:uppercase;text-decoration:none;
+    padding:17px 30px;min-height:52px;border:2px solid transparent;border-radius:100px;
+    transition:background .18s ease,color .18s ease,border-color .18s ease;
+  }
+  .btn svg{width:17px;height:17px;fill:currentColor}
+  .btn-accent{background:var(--acc);color:#fff;box-shadow:0 8px 22px rgba(44,175,34,.28)}
+  .btn-accent:hover{background:var(--acc-d)}
+  .back{display:inline-block;margin-top:26px;color:var(--royal);font-size:.88rem;text-decoration:none}
+  .back:hover{text-decoration:underline}
+  :focus-visible{outline:3px solid var(--sky);outline-offset:3px}
+  @media (max-width:520px){
+    .acts .btn{width:100%}
+  }
+</style>
+</head>
+<body>
+
+<main class="card">
+  <img src="/logo-horizontal.png" alt="KD Cleaning Services" width="190" height="52" class="logo">
+
+  <div class="check" aria-hidden="true">
+    <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+  </div>
+
+  <h1>Thank you! We got your request.</h1>
+
+  <p class="lead">We'll review your details and text you a transparent quote shortly. No visit fee, no obligation to book.</p>
+
+  <!-- Três variantes, escolhidas pelo ?s= que o formulário anexa. O padrão
+       NÃO menciona desconto: prometer os 10% para quem pediu deep cleaning
+       gera frustração na hora do orçamento. Ver a regra da oferta no
+       CLAUDE.md — o desconto é só para a primeira limpeza regular. -->
+  <p class="note" id="note-default">Prefer to talk now? Call or text us and we'll answer your questions right away.</p>
+  <p class="note" id="note-regular" hidden>Your quote will already include <strong>10% off your first regular cleaning</strong>.</p>
+  <p class="note" id="note-deep" hidden>Deep cleaning is quoted by the size and condition of the space, so we'll send your number as soon as we review the details.</p>
+
+  <!-- O botão de WhatsApp saiu daqui em 17/08/2026. O telefone virou a
+       única ação e por isso ganhou o verde de CTA: botão contornado
+       sozinho não lê como ação principal. O WhatsApp continua existindo
+       como plano B nos formulários, quando o envio por e-mail falha —
+       aquilo é rede de segurança, não é este botão. -->
+  <div class="acts">
+    <a href="tel:+19089777791" class="btn btn-accent">
+      <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.4 11.4 0 003.57.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.01z"/></svg>
+      (908) 977-7791
+    </a>
+  </div>
+
+  <a href="/" class="back">&larr; Back to the site</a>
+</main>
+
+<script>
+  /* Troca a variante do aviso conforme o ?s= anexado pelo formulário.
+     Sem parâmetro ou com valor desconhecido, fica o texto padrão — que
+     não faz nenhuma promessa de desconto. */
+  (function () {
+    var s = new URLSearchParams(location.search).get('s');
+    var el = s && document.getElementById('note-' + s);
+    if (!el) return;
+    document.getElementById('note-default').hidden = true;
+    el.hidden = false;
+  })();
+</script>
+
+</body>
+</html>

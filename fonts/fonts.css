@@ -1,0 +1,102 @@
+/* ============================================================
+   KD CLEANING SERVICES â€” fontes servidas do proprio dominio
+
+   Gerado por gera-fontes.ps1. Nao editar a mao: rodar de novo.
+
+   POR QUE NAO USAR O GOOGLE FONTS DIRETO
+   Cada <link> para fonts.googleapis.com custa duas conexoes novas
+   (googleapis para o CSS, gstatic para os .woff2) antes de a
+   primeira letra aparecer. Servindo daqui, os arquivos vem na
+   mesma conexao do site. Este projeto ja levou reprovacao
+   "Compromised Site" no Google Ads e o GTM foi removido por isso:
+   menos terceiro na pagina e menos superficie.
+
+   SO O SUBSET LATIN. O unico conteudo nao-ASCII das paginas e o
+   travessao e a vogal acentuada de "Trajetoria", ambos dentro do
+   range latin. Se um dia entrar texto com outro alfabeto, e
+   preciso rodar o script de novo incluindo o subset novo, senao
+   o caractere cai na fonte de sistema.
+
+   Os url() sao RELATIVOS a este arquivo de proposito: assim a
+   pasta fonts/ funciona igual na raiz do dominio e em /lp/.
+   ============================================================ */
+@font-face{
+  font-family:'Poppins';
+  font-style:normal;
+  font-weight:300;
+  font-display:swap;
+  src:url('poppins-300.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'Poppins';
+  font-style:normal;
+  font-weight:400;
+  font-display:swap;
+  src:url('poppins-400.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'Poppins';
+  font-style:normal;
+  font-weight:500;
+  font-display:swap;
+  src:url('poppins-500.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'Poppins';
+  font-style:normal;
+  font-weight:600;
+  font-display:swap;
+  src:url('poppins-600.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'Poppins';
+  font-style:normal;
+  font-weight:700;
+  font-display:swap;
+  src:url('poppins-700.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'Poppins';
+  font-style:normal;
+  font-weight:800;
+  font-display:swap;
+  src:url('poppins-800.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'Nunito';
+  font-style:normal;
+  font-weight:700;
+  font-display:swap;
+  src:url('nunito-700.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'Nunito';
+  font-style:normal;
+  font-weight:800;
+  font-display:swap;
+  src:url('nunito-800.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'Nunito';
+  font-style:normal;
+  font-weight:900;
+  font-display:swap;
+  src:url('nunito-900.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face{
+  font-family:'Playfair Display';
+  font-style:normal;
+  font-weight:900;
+  font-display:swap;
+  src:url('playfair-display-900.woff2') format('woff2');
+  unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}

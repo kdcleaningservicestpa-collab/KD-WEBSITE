@@ -1,0 +1,128 @@
+# ============================================================
+# KD CLEANING SERVICES — configuração de servidor
+# Hostinger roda LiteSpeed, que lê .htaccess igual ao Apache.
+#
+# ESTRUTURA DO SITE
+#   /            → home institucional  (index.html)
+#   /lp/         → landing page de anúncio (lp/index.html)
+#   /images/     → imagens compartilhadas pelas duas páginas
+#
+# Este arquivo fica na RAIZ do public_html e vale para tudo abaixo.
+# ============================================================
+
+
+RewriteEngine On
+
+
+# ------------------------------------------------------------
+# 1. SUBDOMÍNIO ANTIGO → /lp/
+# ------------------------------------------------------------
+# A LP morava em lp.kdcleaningservices.com. Quem tiver o link antigo,
+# ou anúncio ainda apontando para lá, cai no lugar certo em vez de 404.
+#
+# Só funciona se o subdomínio apontar para ESTA mesma pasta. Se ele
+# tiver public_html próprio, o redirect tem que ser feito lá.
+# A condição do REQUEST_URI evita virar /lp/lp/ em caso de laço.
+RewriteCond %{HTTP_HOST} ^lp\.kdcleaningservices\.com$ [NC]
+RewriteCond %{REQUEST_URI} !^/lp/
+RewriteRule ^(.*)$ https://kdcleaningservices.com/lp/$1 [L,R=301]
+
+
+# ------------------------------------------------------------
+# 2. HTTPS + DOMÍNIO CANÔNICO, EM UM SALTO SÓ
+# ------------------------------------------------------------
+# As duas condições no mesmo bloco de propósito: em regras separadas,
+# quem chega em http://www. leva dois 301 seguidos, e cada salto extra
+# custa tempo de carregamento e diluição de sinal para o Google.
+#
+# ⚠️ Depende do SSL estar ativo NO DOMÍNIO RAIZ (hPanel → Segurança →
+# SSL). O certificado do subdomínio antigo não cobre a raiz. Sem
+# certificado válido aqui, isto vira loop e o site para de abrir —
+# nesse caso, comentar as 3 linhas abaixo.
+RewriteCond %{HTTPS} !=on [OR]
+RewriteCond %{HTTP_HOST} ^www\. [NC]
+RewriteRule ^ https://kdcleaningservices.com%{REQUEST_URI} [L,R=301]
+
+
+# ------------------------------------------------------------
+# 3. URL LIMPA
+# ------------------------------------------------------------
+# /lp e /lp/ devem ser a mesma coisa, com uma versão só indexada.
+# DirectorySlash já resolve, mas explicitar evita depender do padrão
+# do servidor. Também esconde o /index.html na barra de endereço.
+DirectorySlash On
+DirectoryIndex index.html
+
+RewriteCond %{THE_REQUEST} \s/+(.*/)?index\.html[\s?] [NC]
+RewriteRule ^(.*/)?index\.html$ /%1 [L,R=301]
+
+
+# ------------------------------------------------------------
+# 4. CHARSET
+# ------------------------------------------------------------
+# O HTML declara UTF-8, mas cabeçalho do servidor ganha do documento.
+# Sem isto, acento pode quebrar dependendo da configuração do host.
+AddDefaultCharset UTF-8
+
+
+# ------------------------------------------------------------
+# 5. COMPRESSÃO
+# ------------------------------------------------------------
+# Corta cerca de 70% do peso de HTML, CSS e JS na transferência.
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript
+  AddOutputFilterByType DEFLATE application/xml text/xml image/svg+xml
+</IfModule>
+
+
+# ------------------------------------------------------------
+# 6. CACHE DO NAVEGADOR
+# ------------------------------------------------------------
+# ⚠️ CSS e JS ficam 1 mês no cache do visitante. Depois de subir uma
+# alteração de layout, quem já visitou continua vendo a versão antiga
+# até vencer. Para conferir a página nova, abrir com Ctrl+Shift+R.
+# O HTML fica só 1 hora, então mudança de texto aparece rápido.
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType image/jpeg             "access plus 1 year"
+  ExpiresByType image/png              "access plus 1 year"
+  ExpiresByType image/webp             "access plus 1 year"
+  ExpiresByType image/svg+xml          "access plus 1 year"
+  # fontes: o nome do arquivo não muda e a fonte em si nunca muda.
+  # Se um dia trocar a fonte, renomear o arquivo — senão quem já
+  # visitou fica com a antiga por um ano.
+  ExpiresByType font/woff2             "access plus 1 year"
+  ExpiresByType text/css               "access plus 1 month"
+  ExpiresByType application/javascript "access plus 1 month"
+  ExpiresByType text/html              "access plus 1 hour"
+</IfModule>
+
+
+# ------------------------------------------------------------
+# 7. SEGURANÇA
+# ------------------------------------------------------------
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  # A página não usa nenhum destes recursos. Negar por padrão fecha a
+  # porta para script injetado que tente pedir permissão ao visitante.
+  Header set Permissions-Policy "geolocation=(), camera=(), microphone=()"
+</IfModule>
+
+# Nada de listagem de pasta: sem isto, /images/ vira índice navegável.
+Options -Indexes
+
+# Se um documento de trabalho for parar no servidor por engano,
+# ninguém consegue baixar pela URL.
+<FilesMatch "\.(md|zip|bak|log|psd|docx?|xlsx?)$">
+  Require all denied
+</FilesMatch>
+
+
+# ------------------------------------------------------------
+# 8. PÁGINA DE ERRO
+# ------------------------------------------------------------
+# Endereço errado cai na home, não numa tela de erro do servidor.
+ErrorDocument 404 /index.html

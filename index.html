@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Google Tag Manager — reinstalado em 19/08/2026, junto com o da LP
+     (tinham sido removidos em 14/08/2026 durante a investigação da
+     reprovação "Compromised Site" no Google Ads). Container GTM-K84GJTBC,
+     o mesmo das duas páginas. Fica o mais alto possível no <head>, logo
+     depois do charset e do viewport, para não perder evento de quem sai
+     rápido. O home.js já empurra form_start, generate_lead e
+     click_to_call para o dataLayer: no GTM eles aparecem como gatilhos
+     de "Evento personalizado". -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K84GJTBC');</script>
+<!-- End Google Tag Manager -->
+<title>House &amp; Commercial Cleaning Services in Tampa, FL | KD Cleaning Services</title>
+<meta name="description" content="Meticulous house and commercial cleaning in Tampa, FL. Over 8 years of hands-on expertise. Regular, deep, commercial, office and window cleaning. Free quote.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://kdcleaningservices.com/">
+<meta property="og:title" content="House &amp; Commercial Cleaning Services in Tampa, FL | KD Cleaning">
+<meta property="og:description" content="Meticulous house and commercial cleaning in Tampa, FL. Over 8 years of hands-on expertise. Free quote.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kdcleaningservices.com/">
+<!-- og-image.png é 1200x630 com fundo branco: preview de link achata
+     transparência em preto, então não dá pra usar o logo solto aqui. -->
+<meta property="og:image" content="https://kdcleaningservices.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<!-- favicon usa só o símbolo da casinha: o lockup inteiro vira borrão em 32px -->
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.png" type="image/png" sizes="48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<!-- Fontes servidas do próprio domínio (ver fonts/fonts.css). Não voltar
+     para o link do fonts.googleapis.com: são duas conexões novas antes da
+     primeira letra, e este projeto já foi reprovado por "Compromised Site"
+     no Google Ads — quanto menos terceiro na página, melhor.
+
+     Três famílias, cada uma com um papel fechado:
+     Poppins  = corpo de texto
+     Nunito   = heds
+     Playfair = camada decorativa. É a classe da serifa do lettering
+                "Cleaning" do logo (contraste alto, serifa em cunha,
+                terminal em gota). Só aparece em .ghost e nos números
+                das etapas, sempre em opacidade baixa — nunca em texto
+                que precise ser lido. -->
+<link rel="stylesheet" href="fonts/fonts.css">
+<!-- Leaflet antes do home.css: o tema escuro do mapa sobrescreve o CSS padrão -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+<link rel="stylesheet" href="home.css">
+</head>
+<body>
+
+<!-- Google Tag Manager (noscript) — precisa ser o primeiro elemento
+     do <body>. Só entra em ação com JavaScript desligado. -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K84GJTBC"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+<!-- ===================== TOP BAR ===================== -->
+<div class="topbar">
+  <div class="wrap topbar-in">
+    <span class="tb-msg">Over 8 years of hands-on cleaning expertise</span>
+    <a href="tel:+19089777791" class="tb-phone" data-track="call">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.4 11.4 0 003.57.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.01z"/></svg>
+      (908) 977-7791
+    </a>
+  </div>
+</div>
+
+<!-- ===================== HEADER ===================== -->
+<header class="hdr" id="top">
+  <div class="wrap hdr-in">
+    <!-- lockup horizontal: o empilhado não cabe na altura do header e a
+         linha "SERVICES" fica cortada -->
+    <a href="#top" class="brand"><img src="logo-horizontal.png" alt="KD Cleaning Services" width="200" height="55"></a>
+    <nav class="nav" id="nav">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#work">Our Work</a>
+      <a href="#faq">FAQ</a>
+      <!-- página própria, não âncora: /estimate/ é onde mora o
+           questionário de orçamento -->
+      <a href="/estimate/">Free Estimate</a>
+      <a href="#contact">Contact</a>
+      <!-- CTA só na gaveta mobile: o botão do header some abaixo de 900px -->
+      <a href="#contact" class="btn btn-accent nav-cta">Get your free quote</a>
+    </nav>
+    <a href="#contact" class="btn btn-solid btn-sm hdr-cta">Free Quote</a>
+    <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false" aria-controls="nav">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <span class="hdr-prog" id="hdrProg" aria-hidden="true"></span>
+</header>
+
+<!-- ===================== HERO + FORMULÁRIO ===================== -->
+<section class="hero">
+  <div class="hero-bg"><img src="images/hero.jpg" alt="" aria-hidden="true"></div>
+  <span class="hero-glow" aria-hidden="true"></span>
+  <span class="spark" style="--s:52px;--o:.4;--d:12s;top:22%;left:-24px" aria-hidden="true"></span>
+  <span class="spark" style="--s:30px;--o:.34;--d:9s;--dl:-4s;bottom:22%;left:32%" aria-hidden="true"></span>
+
+  <div class="wrap hero-in">
+    <div class="hero-copy">
+      <p class="eyebrow"><i></i>House &amp; commercial cleaning &middot; Tampa, FL</p>
+      <h1>Meticulous house &amp; commercial cleaning services in Tampa, FL</h1>
+      <p class="hero-sub">Backed by over 8 years of hands-on cleaning expertise, we handle the dirty work so you can step into a clean, fresh space every single time.</p>
+      <div class="hero-act">
+        <a href="#contact" class="btn btn-accent btn-lg">Get your free cleaning quote</a>
+        <a href="tel:+19089777791" class="btn btn-line btn-lg" data-track="call">Call (908) 977-7791</a>
+      </div>
+    </div>
+
+    <div class="hero-form" id="heroQuote">
+      <div class="hf-head">
+        <span class="hf-badge">Free quote, fast</span>
+        <h2>Get your free cleaning quote</h2>
+        <p>Get a detailed estimate in under an hour. No endless phone tag, no high-pressure sales pitches, just transparent numbers.</p>
+      </div>
+
+      <!-- form01 = hero, form02 = contato. O data-form continua com o nome
+           legível porque é ele que vai no e-mail do lead e nos eventos de
+           conversão: "form: hero" diz de onde veio, "form: form01" não. -->
+      <form id="form01" class="qform" data-form="hero" novalidate>
+        <div class="fld">
+          <label for="h-name">Full name</label>
+          <input type="text" id="h-name" name="name" autocomplete="name" placeholder="Sarah Johnson" required>
+          <span class="er" data-er="name"></span>
+        </div>
+        <div class="fld">
+          <label for="h-phone">Phone number</label>
+          <input type="tel" id="h-phone" name="phone" inputmode="tel" autocomplete="tel" placeholder="(813) 555-0134" required>
+          <span class="er" data-er="phone"></span>
+        </div>
+        <div class="fld">
+          <label for="h-service">Service needed</label>
+          <select id="h-service" name="service" required>
+            <option value="">Select a service</option>
+            <optgroup label="Residential">
+              <option>Regular Cleaning</option>
+              <option>Deep Cleaning</option>
+            </optgroup>
+            <optgroup label="Commercial">
+              <option>Commercial Cleaning</option>
+              <option>Office Cleaning</option>
+            </optgroup>
+            <optgroup label="Residential &amp; commercial">
+              <option>Window Cleaning</option>
+            </optgroup>
+          </select>
+          <span class="er" data-er="service"></span>
+        </div>
+        <div class="hp" aria-hidden="true">
+          <label for="h-company">Company</label>
+          <input type="text" id="h-company" name="company" tabindex="-1" autocomplete="off">
+        </div>
+        <button type="submit" class="btn btn-accent btn-full qform-submit">Get your free cleaning quote</button>
+        <div class="qform-status" role="status" aria-live="polite"></div>
+      </form>
+
+      <div class="qform-done" hidden>
+        <span class="qd-check" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+        </span>
+        <h3>Request received</h3>
+        <p>We provide a transparent, upfront quote with no hidden fees and lock in a date that suits your calendar.</p>
+        <a href="tel:+19089777791" class="btn btn-line" data-track="call">Call (908) 977-7791</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sem shape divider aqui de propósito: a faixa flutuante sobrepõe
+       esta borda, e borda ondulada sob um retângulo reto faz o
+       retângulo parecer torto. As ondas ficam nas seções em que
+       nada sobrepõe (Why Choose Us e How It Works). -->
+</section>
+
+<!-- ===================== FAIXA FLUTUANTE ===================== -->
+<div class="strip-wrap">
+  <div class="wrap">
+    <ul class="strip">
+      <li>
+        <span class="st-ico">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M9.4 1.2h5.2v2.3H9.4zM10.9 3.5h2.2v2.4h-2.2z"/>
+            <path d="M17.85 5.05l1.48-1.48 2.1 2.1-1.48 1.48z"/>
+            <circle cx="12" cy="14.1" r="8.5"/>
+            <path fill="#fff" d="M12.9 9.1h-1.8v5.5l3.85 2.35.92-1.5-2.97-1.8z"/>
+          </svg>
+        </span>
+        <strong>Free quote, fast</strong>
+      </li>
+      <li>
+        <span class="st-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 2H4a2 2 0 00-2 2v3a2 2 0 001 1.72V20a2 2 0 002 2h14a2 2 0 002-2V8.72A2 2 0 0022 7V4a2 2 0 00-2-2zm0 18H4V9h16v11zM20 7H4V4h16v3zM9 12h6v2H9v-2z"/></svg></span>
+        <strong>Supplies included</strong>
+      </li>
+      <li>
+        <span class="st-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1.2 15.2L6.6 12l1.4-1.4 2.8 2.8 5.6-5.6L17.8 9l-7 7.2z"/></svg></span>
+        <strong>24-hour guarantee</strong>
+      </li>
+      <!-- Este slot era "8+ years experience", que agora abre a seção
+           Why Choose Us logo abaixo. Repetir o mesmo argumento duas vezes
+           na mesma rolagem gasta espaço sem acrescentar motivo novo.
+           No lugar entrou a flexibilidade de agenda, que já é promessa
+           aprovada na oferta da LP e não aparece em nenhum outro ponto. -->
+      <li>
+        <span class="st-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 3h-1V1h-2v2H8V1H6v2H5a2 2 0 00-2 2v16a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zm0 18H5V9h14v12zM5 7V5h14v2H5zm7 4h5v5h-5z"/></svg></span>
+        <strong>Weekly, biweekly &amp; monthly</strong>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!-- ===================== SERVIÇOS (carrossel) ===================== -->
+<section class="sec services" id="services">
+  <!-- brilhos decorativos: sangram pelas bordas, o overflow da .sec corta -->
+  <span class="spark" style="--s:58px;--o:.22;--d:13s;top:16%;right:-26px" aria-hidden="true"></span>
+  <span class="spark" style="--s:26px;--o:.3;--d:9s;--dl:-3s;bottom:12%;left:3%" aria-hidden="true"></span>
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="ghost" aria-hidden="true">Services</span>
+      <p class="eyebrow ey-c"><i></i>Our services</p>
+      <h2>Flexible cleaning solutions for your space</h2>
+      <span class="rule" aria-hidden="true"></span>
+    </header>
+
+    <!-- O mapeamento tem dois mercados: residencial (personas 1 e 3) e
+         comercial (persona 2). Sem o filtro, quem busca "office cleaning"
+         passa por três cards residenciais antes de se ver na página. -->
+    <div class="svc-filter" role="tablist" aria-label="Service type">
+      <button type="button" class="sf-btn is-on" data-cat="residential" role="tab" aria-selected="true">Residential</button>
+      <button type="button" class="sf-btn" data-cat="commercial" role="tab" aria-selected="false">Commercial</button>
+    </div>
+  </div>
+
+  <div class="car" id="svcCar">
+    <div class="wrap car-in">
+      <button class="car-nav car-prev" type="button" aria-label="Previous services">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+      </button>
+      <button class="car-nav car-next" type="button" aria-label="Next services">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+      </button>
+
+      <div class="car-track" tabindex="0" aria-label="Cleaning services">
+
+        <!-- Os itens de cada card são EXTRAÍDOS da própria descrição da
+             copy, não escritos do zero. Respondem a "o que exatamente
+             está incluído?", dúvida frequente das três personas. -->
+        <article class="svc" data-cat="residential">
+          <div class="svc-img">
+            <img src="images/regular-cleaning.jpg" alt="Tidy living room after a regular cleaning service" loading="lazy" width="720" height="540">
+          </div>
+          <div class="svc-body">
+            <h3>Regular Cleaning</h3>
+            <p>Keep your home running smoothly with our regular cleaning service. Available weekly, bi-weekly, or monthly, we handle all routine tasks, ensuring you step into a fresh environment without lifting a finger.</p>
+            <ul class="svc-tags">
+              <li>Weekly</li><li>Bi-weekly</li><li>Monthly</li>
+            </ul>
+            <a href="#contact" class="svc-link" data-service="Regular Cleaning">Request a quote <b>&rarr;</b></a>
+          </div>
+        </article>
+
+        <article class="svc" data-cat="residential">
+          <div class="svc-img">
+            <img src="images/deep-cleaning.jpg" alt="Spotless kitchen after a deep cleaning service" loading="lazy" width="720" height="540">
+          </div>
+          <div class="svc-body">
+            <h3>Deep Cleaning</h3>
+            <p>Our deep cleaning service targets tough grime and dust for a thorough reset. We hand-wipe baseboards, scrub tile grout, and clean cabinet exteriors, making it perfect for first-time visits or seasonal refreshes.</p>
+            <ul class="svc-tags">
+              <li>Baseboards</li><li>Tile grout</li><li>Cabinet exteriors</li>
+            </ul>
+            <a href="#contact" class="svc-link" data-service="Deep Cleaning">Request a quote <b>&rarr;</b></a>
+          </div>
+        </article>
+
+        <!-- ⚠️ FOTO PROVISÓRIA. O ideal é images/window-cleaning.jpg, que ainda
+             não existe. Enquanto isso, uma foto do acervo — o alt descreve o
+             que está na imagem, não o serviço, para não afirmar o que a foto
+             não mostra. Trocar quando a imagem definitiva chegar. -->
+        <article class="svc" data-cat="residential commercial">
+          <div class="svc-img">
+            <img src="images/work-03.jpg" alt="Bright, freshly cleaned interior" loading="lazy" width="720" height="540">
+          </div>
+          <div class="svc-body">
+            <h3>Window Cleaning</h3>
+            <p>Enhance your property's appearance with our streak-free window cleaning. We clean both interior and exterior surfaces, including frames and sills, optimizing natural light and giving your space a fresh look.</p>
+            <ul class="svc-tags">
+              <li>Interior &amp; exterior</li><li>Frames</li><li>Sills</li>
+            </ul>
+            <a href="#contact" class="svc-link" data-service="Window Cleaning">Request a quote <b>&rarr;</b></a>
+          </div>
+        </article>
+
+        <!-- ⚠️ FOTO PROVISÓRIA, ver nota do card de Window Cleaning. -->
+        <article class="svc" data-cat="commercial">
+          <div class="svc-img">
+            <img src="images/work-05.jpg" alt="Polished floor after a professional clean" loading="lazy" width="720" height="540">
+          </div>
+          <div class="svc-body">
+            <h3>Commercial Cleaning</h3>
+            <p>Maintain a professional image with our tailored commercial cleaning programs. We cover floor care, sanitization, trash removal, and restroom upkeep, with flexible scheduling.</p>
+            <ul class="svc-tags">
+              <li>Floor care</li><li>Sanitization</li><li>Trash removal</li><li>Restroom upkeep</li>
+            </ul>
+            <a href="#contact" class="svc-link" data-service="Commercial Cleaning">Request a quote <b>&rarr;</b></a>
+          </div>
+        </article>
+
+        <!-- ⚠️ FOTO PROVISÓRIA, ver nota do card de Window Cleaning. -->
+        <article class="svc" data-cat="commercial">
+          <div class="svc-img">
+            <img src="images/work-02.jpg" alt="Clean, orderly interior space" loading="lazy" width="720" height="540">
+          </div>
+          <div class="svc-body">
+            <h3>Office Cleaning</h3>
+            <p>Our office cleaning ensures a healthy and productive workspace. We focus on surface wiping, high-touch sanitization, and floor maintenance, returning your team to an organized environment every day.</p>
+            <ul class="svc-tags">
+              <li>Surface wiping</li><li>High-touch sanitization</li><li>Floor maintenance</li>
+            </ul>
+            <a href="#contact" class="svc-link" data-service="Office Cleaning">Request a quote <b>&rarr;</b></a>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="car-dots" role="tablist" aria-label="Service slides"></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="sec-cta">
+      <a href="tel:+19089777791" class="btn btn-accent btn-lg" data-track="call">Call (908) 977-7791</a>
+    </div>
+  </div>
+
+  <!-- Onda para o About, que é branco. A altura da onda cabe dentro do
+       padding inferior da seção; se o .sec-cta encostar nela, é o padding
+       que aumenta, não a onda que diminui. -->
+  <div class="shape shape-b" aria-hidden="true">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,40 C260,88 520,8 760,26 C990,44 1230,86 1440,44 L1440,80 L0,80 Z"/></svg>
+  </div>
+</section>
+
+<!-- ===================== ABOUT ===================== -->
+<!-- Mesma gramática da dobra de passos (How It Works), que por sua vez é a
+     do About da referência: foto ao fundo e o texto dentro de um card de
+     vidro, centralizado. A diferença é que aqui a foto vive DENTRO de um
+     painel arredondado, não sangrando na largura toda: o About vem logo
+     antes do Why Choose Us, que já é uma seção escura de foto sangrada —
+     as duas em sequência viravam duas telas escuras seguidas. O painel
+     mantém a seção clara e ainda deixa a composição mais delicada. -->
+<section class="sec about" id="about">
+  <span class="spark" style="--s:64px;--o:.18;--d:15s;top:8%;left:-30px" aria-hidden="true"></span>
+  <span class="spark" style="--s:30px;--o:.26;--d:10s;--dl:-5s;bottom:18%;right:-14px" aria-hidden="true"></span>
+
+  <div class="wrap">
+    <div class="ab-photo">
+      <img class="ab-bg" src="images/work-06.jpg" alt="" aria-hidden="true" loading="lazy" width="1600" height="1000">
+
+      <!-- as mesmas bolhas de sabão do Why Choose Us; o overflow do painel
+           é que corta o excedente -->
+      <div class="bubbles" aria-hidden="true">
+        <i style="--x:6%;--s:26px;--d:21s;--t:-3s"></i>
+        <i style="--x:14%;--s:13px;--d:16s;--t:-11s"></i>
+        <i style="--x:23%;--s:34px;--d:26s;--t:-7s"></i>
+        <i style="--x:31%;--s:18px;--d:18s;--t:-15s"></i>
+        <i style="--x:39%;--s:11px;--d:14s;--t:-2s"></i>
+        <i style="--x:47%;--s:29px;--d:24s;--t:-18s"></i>
+        <i style="--x:55%;--s:15px;--d:17s;--t:-6s"></i>
+      </div>
+
+      <div class="ab-card">
+        <p class="eyebrow ey-c"><i></i>About us</p>
+        <h2>Experienced, detail-obsessed cleaning you can count on</h2>
+        <span class="rule" aria-hidden="true"></span>
+        <p>KD Cleaning Services was built on a simple premise: cleaning should be thorough, transparent, and completely worry-free for the client.</p>
+        <!-- O nome da proprietária saiu daqui pela mesma decisão aplicada na LP
+             em 11/08/2026: não citar o nome dela nem sugerir que trabalha
+             sozinha. O currículo dos 8 anos e as centenas de imóveis continuam,
+             agora atribuídos à empresa. -->
+        <p>With over eight years of hands-on experience in high-standard residential and commercial upkeep, and hundreds of properties served across the Tampa Bay area, KD Cleaning Services was created to bridge the gap between quick "surface-level" dusting and real, deep-cleaning care.</p>
+        <p class="ab-stat"><strong>8+</strong><span>years of hands-on experience</span></p>
+        <a href="#contact" class="btn btn-accent btn-lg">Claim your custom quote today</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WHY CHOOSE US ===================== -->
+<section class="sec-photo why" id="why">
+  <div class="ph-bg"><img src="images/work-05.jpg" alt="" aria-hidden="true"></div>
+  <div class="shape shape-t" aria-hidden="true">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,0 L1440,0 L1440,30 C1180,84 940,4 700,26 C470,48 220,86 0,42 Z"/></svg>
+  </div>
+
+  <!-- Textura de bolhas de sabão: puramente decorativa. Cada bolha carrega
+       posição (--x), tamanho (--s), duração (--d) e atraso (--t) próprios;
+       atrasos negativos fazem a seção já nascer com bolhas no meio do percurso. -->
+  <div class="bubbles" aria-hidden="true">
+    <i style="--x:4%;--s:28px;--d:22s;--t:-2s"></i>
+    <i style="--x:11%;--s:14px;--d:17s;--t:-9s"></i>
+    <i style="--x:18%;--s:38px;--d:27s;--t:-14s"></i>
+    <i style="--x:26%;--s:11px;--d:15s;--t:-5s"></i>
+    <i style="--x:33%;--s:22px;--d:20s;--t:-17s"></i>
+    <i style="--x:41%;--s:32px;--d:25s;--t:-8s"></i>
+    <i style="--x:49%;--s:13px;--d:16s;--t:-12s"></i>
+    <i style="--x:57%;--s:26px;--d:23s;--t:-3s"></i>
+    <i style="--x:64%;--s:42px;--d:29s;--t:-19s"></i>
+    <i style="--x:72%;--s:16px;--d:18s;--t:-7s"></i>
+    <i style="--x:79%;--s:24px;--d:21s;--t:-15s"></i>
+    <i style="--x:86%;--s:12px;--d:14s;--t:-1s"></i>
+    <i style="--x:92%;--s:34px;--d:26s;--t:-11s"></i>
+    <i style="--x:97%;--s:18px;--d:19s;--t:-6s"></i>
+  </div>
+
+  <div class="wrap">
+    <header class="sec-head inv">
+      <span class="ghost" aria-hidden="true">Why Us</span>
+      <p class="eyebrow ey-c"><i></i>Why choose us</p>
+      <h2>Expert teams. Spotless results</h2>
+      <span class="rule" aria-hidden="true"></span>
+    </header>
+
+    <!-- Os 5 tópicos são os mesmos da faixa de confiança da LP, definidos
+         pela cliente em 11/08/2026. Site e anúncio dizendo a mesma coisa:
+         quem clica no anúncio e depois procura a empresa no Google encontra
+         a mesma promessa nos dois lugares. -->
+    <div class="why-grid">
+      <div class="why-i">
+        <span class="why-ic"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm1 10.6V6h-2v7.4l5 3 1-1.7z"/></svg></span>
+        <h3>Always on time</h3>
+        <p>We respect your time and arrive as scheduled, every time.</p>
+      </div>
+      <div class="why-i">
+        <span class="why-ic"><svg viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg></span>
+        <h3>8+ years of experience</h3>
+        <p>Trusted cleaning experience serving homes throughout the Tampa Bay area.</p>
+      </div>
+      <div class="why-i">
+        <span class="why-ic"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 100 20 10 10 0 000-20zm-3.5 7a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm7 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM12 18a5.5 5.5 0 01-5.2-3.7l1.9-.6A3.5 3.5 0 0012 16a3.5 3.5 0 003.3-2.3l1.9.6A5.5 5.5 0 0112 18z"/></svg></span>
+        <h3>Stress-free cleaning</h3>
+        <p>Leave the cleaning to us and enjoy a fresh, spotless home without the stress.</p>
+      </div>
+      <div class="why-i">
+        <span class="why-ic"><svg viewBox="0 0 24 24"><path d="M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z"/></svg></span>
+        <h3>Quality you can trust</h3>
+        <p>We pay attention to the details and take pride in delivering a clean you can feel.</p>
+      </div>
+      <div class="why-i">
+        <span class="why-ic"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-1.2 15.2L6.6 12l1.4-1.4 2.8 2.8 5.6-5.6L17.8 9l-7 7.2z"/></svg></span>
+        <h3>Trusted &amp; reliable team</h3>
+        <p>Our team members are carefully selected, dependable, and trusted to care for your home with the respect it deserves.</p>
+      </div>
+    </div>
+
+    <div class="sec-cta">
+      <a href="#contact" class="btn btn-accent btn-lg">Book your service online</a>
+    </div>
+  </div>
+
+  <div class="shape shape-b" aria-hidden="true">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,40 C260,88 520,8 760,26 C990,44 1230,86 1440,44 L1440,80 L0,80 Z"/></svg>
+  </div>
+</section>
+
+<!-- ===================== PORTFÓLIO =====================
+     ⚠️ Afirma trabalho executado. Publicar só com FOTOS REAIS.
+     Sem elas, adicionar hidden na tag <section>. -->
+<section class="sec work" id="work">
+  <span class="spark" style="--s:46px;--o:.2;--d:12s;--dl:-2s;top:11%;right:-20px" aria-hidden="true"></span>
+  <div class="wrap">
+    <header class="sec-head">
+      <span class="ghost" aria-hidden="true">Our Work</span>
+      <p class="eyebrow ey-c"><i></i>Our work</p>
+      <h2>Real transformations across Tampa homes and offices</h2>
+      <span class="rule" aria-hidden="true"></span>
+    </header>
+
+    <!-- As legendas tornam visível o pilar 01 (Execução Detalhista).
+         Todas saem literalmente das descrições dos serviços na copy. -->
+    <div class="work-grid">
+      <figure>
+        <img src="images/work-01.jpg" alt="Cabinet exteriors cleaned by KD Cleaning Services" loading="lazy" width="800" height="800">
+        <figcaption>Cabinet exteriors</figcaption>
+      </figure>
+      <figure>
+        <img src="images/work-02.jpg" alt="Restroom cleaned by KD Cleaning Services" loading="lazy" width="800" height="800">
+        <figcaption>Restroom upkeep</figcaption>
+      </figure>
+      <figure>
+        <img src="images/work-03.jpg" alt="Oven interior cleaned by KD Cleaning Services" loading="lazy" width="800" height="800">
+        <figcaption>Tough grime</figcaption>
+      </figure>
+      <figure>
+        <img src="images/work-04.jpg" alt="Baseboards cleaned by KD Cleaning Services" loading="lazy" width="800" height="800">
+        <figcaption>Baseboards, hand-wiped</figcaption>
+      </figure>
+      <figure>
+        <img src="images/work-05.jpg" alt="Floors cleaned by KD Cleaning Services" loading="lazy" width="800" height="800">
+        <figcaption>Floor care</figcaption>
+      </figure>
+      <figure>
+        <img src="images/work-06.jpg" alt="Bedroom cleaned by KD Cleaning Services" loading="lazy" width="800" height="800">
+        <figcaption>Routine tasks</figcaption>
+      </figure>
+    </div>
+
+    <div class="sec-cta">
+      <a href="#contact" class="btn btn-accent btn-lg">Get your free quote now</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== HOW IT WORKS ===================== -->
+<section class="sec-photo how" id="how">
+  <div class="ph-bg"><img src="images/work-01.jpg" alt="" aria-hidden="true"></div>
+  <div class="shape shape-t" aria-hidden="true">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,0 L1440,0 L1440,34 C1200,80 950,6 720,26 C500,46 240,84 0,38 Z"/></svg>
+  </div>
+
+  <div class="wrap">
+    <header class="sec-head inv">
+      <span class="ghost" aria-hidden="true">Process</span>
+      <p class="eyebrow ey-c"><i></i>How it works</p>
+      <h2>3 simple steps to a spotless space</h2>
+      <span class="rule" aria-hidden="true"></span>
+    </header>
+
+    <ol class="steps">
+      <li>
+        <span class="st-n">1</span>
+        <h3>Request your custom quote</h3>
+        <p>Contact us online or by phone with your square footage, service type, and location.</p>
+      </li>
+      <li>
+        <span class="st-n">2</span>
+        <h3>Set your schedule &amp; scope</h3>
+        <p>We provide a transparent, upfront quote with no hidden fees and lock in a date that suits your calendar.</p>
+      </li>
+      <li>
+        <span class="st-n">3</span>
+        <h3>Enjoy a refreshed space</h3>
+        <p>We arrive on time with all professional tools and supplies needed to make your home or office shine.</p>
+      </li>
+    </ol>
+
+    <div class="sec-cta">
+      <a href="#contact" class="btn btn-accent btn-lg">Schedule your cleaning now</a>
+    </div>
+  </div>
+
+  <div class="shape shape-b" aria-hidden="true">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,44 C240,86 500,10 740,28 C980,46 1220,88 1440,42 L1440,80 L0,80 Z"/></svg>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="sec faq" id="faq">
+  <span class="spark" style="--s:54px;--o:.2;--d:14s;top:14%;left:-24px" aria-hidden="true"></span>
+  <span class="spark" style="--s:24px;--o:.28;--d:9s;--dl:-6s;bottom:14%;right:4%" aria-hidden="true"></span>
+  <div class="wrap">
+
+    <header class="sec-head">
+      <span class="ghost" aria-hidden="true">FAQ</span>
+      <p class="eyebrow ey-c"><i></i>FAQ</p>
+      <h2>Frequently asked questions</h2>
+      <span class="rule" aria-hidden="true"></span>
+    </header>
+
+    <div class="faq-list">
+      <details class="qa" open>
+        <summary>How much do your house cleaning services cost in Tampa?</summary>
+        <div class="qa-b"><p>Our pricing is based on the size of your space (square footage), the number of bedrooms and bathrooms, and the condition of the property.</p></div>
+      </details>
+      <details class="qa">
+        <summary>What areas around Tampa do you serve?</summary>
+        <div class="qa-b"><p>We serve residential and commercial clients across the entire Tampa Bay area, covering Hillsborough, Pinellas, and Pasco counties &mdash; including Tampa, St. Petersburg, Clearwater, Largo, Brandon, Riverview, Plant City, Palm Harbor, Wesley Chapel, and many more. Don't see your city? Send us your ZIP code and we'll confirm right away.</p></div>
+      </details>
+      <details class="qa">
+        <summary>Do I need to provide my own cleaning supplies or equipment?</summary>
+        <div class="qa-b"><p>No. KD Cleaning Services brings all standard professional cleaning products, microfibers, vacuums, and specialized equipment needed to complete the job.</p></div>
+      </details>
+      <details class="qa">
+        <summary>How long does a typical deep cleaning service take?</summary>
+        <div class="qa-b"><p>Duration depends on the size and initial condition of the property. Most residential deep cleanings take between 3 and 6 hours. Regular recurring cleanings generally take between 2 and 4 hours.</p></div>
+      </details>
+      <details class="qa">
+        <summary>Do I need to be home while you clean?</summary>
+        <div class="qa-b"><p>That is entirely up to you. Many of our clients provide key access, garage codes, or entry instructions if they are at work or running errands during the cleaning window. We handle all properties with care and security.</p></div>
+      </details>
+      <details class="qa">
+        <summary>How do recurring cleanings work?</summary>
+        <div class="qa-b"><p>We offer weekly, bi-weekly, and monthly recurring cleaning schedules. Once we complete an initial deep clean or standard session, we lock in your preferred day and time block for ongoing maintenance.</p></div>
+      </details>
+    </div>
+
+    <!-- Fecha a dobra com o clique-para-ligar: era a caixa da coluna lateral -->
+    <div class="faq-box">
+      <span class="fb-ico" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.4 11.4 0 003.57.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.01z"/></svg>
+      </span>
+      <h3>Have more questions? We're here to help</h3>
+      <a href="tel:+19089777791" class="btn btn-light" data-track="call">Call (908) 977-7791</a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ===================== CONTATO + MAPA ===================== -->
+<section class="sec contact" id="contact">
+  <!-- Onda vindo da FAQ, que é cinza: o corte reto entre o cinza e o navy
+       era a transição mais dura da página. O fill vem do CSS (.contact
+       .shape-t svg), não do branco padrão. -->
+  <div class="shape shape-t" aria-hidden="true">
+    <svg viewBox="0 0 1440 80" preserveAspectRatio="none"><path d="M0,0 L1440,0 L1440,30 C1180,84 940,4 700,26 C470,48 220,86 0,42 Z"/></svg>
+  </div>
+  <span class="spark" style="--s:60px;--o:.3;--d:13s;top:10%;right:-28px" aria-hidden="true"></span>
+  <span class="spark" style="--s:28px;--o:.34;--d:10s;--dl:-4s;bottom:16%;left:-10px" aria-hidden="true"></span>
+  <div class="wrap">
+    <header class="sec-head inv">
+      <span class="ghost" aria-hidden="true">Contact</span>
+      <p class="eyebrow ey-c"><i></i>Contact us</p>
+      <h2>Request your custom quote</h2>
+      <span class="rule" aria-hidden="true"></span>
+      <!-- canal alternativo ao formulário: o Gmail da cliente. O lead do
+           formulário continua indo pelo Web3Forms; este link é só para quem
+           prefere escrever direto. -->
+      <p class="ct-alt">Prefer email? Write to
+        <a href="mailto:kdcleaningservicestpa@gmail.com" data-track="email">kdcleaningservicestpa@gmail.com</a>
+      </p>
+    </header>
+
+    <div class="ct-grid">
+
+      <div class="ct-form-wrap">
+        <form id="form02" class="qform" data-form="contact" novalidate>
+          <div class="fld">
+            <label for="q-name">Full name</label>
+            <input type="text" id="q-name" name="name" autocomplete="name" placeholder="Sarah Johnson" required>
+            <span class="er" data-er="name"></span>
+          </div>
+
+          <div class="fld-row">
+            <div class="fld">
+              <label for="q-phone">Phone number</label>
+              <input type="tel" id="q-phone" name="phone" inputmode="tel" autocomplete="tel" placeholder="(813) 555-0134" required>
+              <span class="er" data-er="phone"></span>
+            </div>
+            <div class="fld">
+              <label for="q-zip">ZIP code</label>
+              <input type="text" id="q-zip" name="zip" inputmode="numeric" maxlength="5" autocomplete="postal-code" placeholder="33635" required>
+              <span class="er" data-er="zip"></span>
+            </div>
+          </div>
+
+          <div class="fld">
+            <label for="q-service">Service needed</label>
+            <select id="q-service" name="service" required>
+              <option value="">Select a service</option>
+              <option>Regular Cleaning</option>
+              <option>Deep Cleaning</option>
+              <option>Commercial Cleaning</option>
+              <option>Office Cleaning</option>
+              <option>Window Cleaning</option>
+            </select>
+            <span class="er" data-er="service"></span>
+          </div>
+
+          <div class="fld">
+            <label for="q-msg">Square footage, service type and location <span class="opt">(optional)</span></label>
+            <textarea id="q-msg" name="message" rows="4" placeholder="2,000 sq ft, 3 bedrooms, 2 bathrooms, Westchase"></textarea>
+          </div>
+
+          <div class="hp" aria-hidden="true">
+            <label for="q-company">Company</label>
+            <input type="text" id="q-company" name="company" tabindex="-1" autocomplete="off">
+          </div>
+
+          <button type="submit" class="btn btn-accent btn-lg btn-full qform-submit">Get your free cleaning quote</button>
+          <div class="qform-status" role="status" aria-live="polite"></div>
+        </form>
+
+        <div class="qform-done" hidden>
+          <span class="qd-check" aria-hidden="true">
+            <svg viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          </span>
+          <h3>Request received</h3>
+          <p>We provide a transparent, upfront quote with no hidden fees and lock in a date that suits your calendar.</p>
+          <a href="tel:+19089777791" class="btn btn-outline" data-track="call">Call (908) 977-7791</a>
+        </div>
+      </div>
+
+      <!-- Mapa ocupa a coluna inteira. Os pontos são o centro aproximado de cada
+           comunidade e o contorno é ilustrativo: não é limite oficial de município
+           nem promessa de cobertura por CEP. A lista de cidades vem do briefing.
+           Renderizado em home.js (Leaflet); sem Leaflet cai no embed do Google. -->
+      <aside class="ct-map" aria-label="KD Cleaning Services service area map">
+        <div id="ct-map-canvas"></div>
+        <div class="ct-map-legend">
+          <span class="cml-title">Service area</span>
+          <span class="cml-sub">The entire Tampa Bay area</span>
+        </div>
+        <a class="ct-map-open" href="https://www.google.com/maps/@27.99,-82.50,9z"
+           target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1114.5 9 2.5 2.5 0 0112 11.5z"/></svg>
+          Open in Google Maps
+        </a>
+      </aside>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RODAPÉ ===================== -->
+<footer class="ftr">
+
+  <!-- Faixa de áreas de atendimento, acima das colunas do rodapé.
+       Lista ampliada pela cliente em 11/08/2026, igual à da LP: as mesmas
+       21 cidades, na mesma ordem por condado. É declaração de cobertura,
+       não texto decorativo — não incluir cidade nova sem confirmar com ela. -->
+  <div class="wrap">
+    <section class="areas" aria-labelledby="areas-h">
+      <span class="ghost" aria-hidden="true">Tampa Bay</span>
+      <h2 id="areas-h">Service Areas</h2>
+      <p class="areas-sub">Proudly serving the entire Tampa Bay area</p>
+      <ul class="fa-list" id="areaList">
+        <li style="--i:0"><a href="#contact">Tampa</a></li>
+        <li style="--i:1"><a href="#contact">North Tampa</a></li>
+        <li style="--i:2"><a href="#contact">Westchase</a></li>
+        <li style="--i:3"><a href="#contact">Carrollwood</a></li>
+        <li style="--i:4"><a href="#contact">Brandon</a></li>
+        <li style="--i:5"><a href="#contact">Riverview</a></li>
+        <li style="--i:6"><a href="#contact">Ruskin</a></li>
+        <li style="--i:7"><a href="#contact">Plant City</a></li>
+        <li style="--i:8"><a href="#contact">Lutz</a></li>
+        <li style="--i:9"><a href="#contact">St. Petersburg</a></li>
+        <li style="--i:10"><a href="#contact">Clearwater</a></li>
+        <li style="--i:11"><a href="#contact">Largo</a></li>
+        <li style="--i:12"><a href="#contact">Pinellas Park</a></li>
+        <li style="--i:13"><a href="#contact">Dunedin</a></li>
+        <li style="--i:14"><a href="#contact">Palm Harbor</a></li>
+        <li style="--i:15"><a href="#contact">Tarpon Springs</a></li>
+        <li style="--i:16"><a href="#contact">Safety Harbor</a></li>
+        <li style="--i:17"><a href="#contact">Oldsmar</a></li>
+        <li style="--i:18"><a href="#contact">Wesley Chapel</a></li>
+        <li style="--i:19"><a href="#contact">Land O' Lakes</a></li>
+        <li style="--i:20"><a href="#contact">Odessa</a></li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="wrap ftr-in">
+
+    <div class="ftr-brand">
+      <!-- versão branca do logo: dispensa a pílula branca que existia aqui -->
+      <img src="logo-white.png" alt="KD Cleaning Services" width="190" height="135">
+      <p>Meticulous house &amp; commercial cleaning services in Tampa, FL.</p>
+      <ul class="ftr-contact">
+        <li>
+          <span class="fi-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.4 11.4 0 003.57.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.01z"/></svg></span>
+          <a href="tel:+19089777791" data-track="call">(908) 977-7791</a>
+        </li>
+        <li>
+          <span class="fi-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 4H4a2 2 0 00-2 2v12a2 2 0 002 2h16a2 2 0 002-2V6a2 2 0 00-2-2zm0 4.24l-8 4.76-8-4.76V6l8 4.76L20 6z"/></svg></span>
+          <a class="fi-mail" href="mailto:kdcleaningservicestpa@gmail.com" data-track="email">kdcleaningservicestpa@gmail.com</a>
+        </li>
+        <li>
+          <span class="fi-ico"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7zm0 9.5A2.5 2.5 0 1114.5 9 2.5 2.5 0 0112 11.5z"/></svg></span>
+          <span>Tampa, Florida</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="ftr-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#services">Regular Cleaning</a></li>
+        <li><a href="#services">Deep Cleaning</a></li>
+        <li><a href="#services">Commercial Cleaning</a></li>
+        <li><a href="#services">Office Cleaning</a></li>
+        <li><a href="#services">Window Cleaning</a></li>
+      </ul>
+    </div>
+
+    <div class="ftr-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#about">About us</a></li>
+        <li><a href="#work">Our work</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="/estimate/">Free estimate</a></li>
+        <li><a href="#contact">Contact us</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="ftr-bot">
+    <div class="wrap ftr-bot-in">
+      <p>&copy; <span id="yr">2026</span> KD Cleaning Services. All rights reserved.</p>
+      <p>Developed by <strong>Trajetória Do Sucesso</strong></p>
+    </div>
+  </div>
+</footer>
+
+<div class="mbar">
+  <a href="tel:+19089777791" class="mb-call" data-track="call">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24 11.4 11.4 0 003.57.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.01z"/></svg>
+    Call
+  </a>
+  <a href="#contact" class="mb-cta">Get your free quote</a>
+</div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="home.js"></script>
+</body>
+</html>

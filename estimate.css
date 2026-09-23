@@ -1,0 +1,204 @@
+/* ============================================================
+   KD CLEANING SERVICES — /estimate/
+   Complemento do home.css, nunca substituto: as variáveis de cor,
+   os botões, .wrap, .fld, .er e o rodapé vêm todos de lá.
+   Aqui fica só o que é exclusivo do questionário.
+   ============================================================ */
+
+/* ---------- cabeçalho da página ---------- */
+.est-top{
+  position:relative;overflow:hidden;isolation:isolate;
+  background:linear-gradient(165deg,var(--navy-d) 0%,var(--navy) 58%,#1D2D64 100%);
+  color:#C6D3EC;text-align:center;
+  padding:clamp(44px,6vw,78px) 0 clamp(58px,7vw,92px);
+}
+.est-top-in{max-width:760px}
+.est-top h1{
+  color:#fff;font-size:clamp(1.9rem,4.4vw,3rem);line-height:1.12;
+  margin-bottom:16px;text-wrap:balance;
+}
+.est-lede{font-size:clamp(1rem,1.5vw,1.1rem);line-height:1.6;max-width:56ch;margin:0 auto}
+
+.est-chips{
+  list-style:none;display:flex;flex-wrap:wrap;justify-content:center;
+  gap:10px;margin-top:26px;
+}
+.est-chips li{
+  display:flex;align-items:center;gap:8px;
+  padding:8px 15px;border-radius:100px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.17);
+  color:#fff;font-size:.83rem;font-weight:600;
+}
+/* o "check" é pseudo-elemento para o texto do chip continuar
+   selecionável e legível por leitor de tela sem um ícone no meio */
+.est-chips li::before{
+  content:"";width:15px;height:15px;flex-shrink:0;background:var(--sky);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+/* ---------- corpo ---------- */
+.est-main{background:var(--bg-s);padding:0 0 clamp(56px,7vw,96px)}
+.est-grid{
+  display:grid;grid-template-columns:1.55fr .85fr;gap:clamp(24px,3vw,40px);
+  align-items:start;
+  /* sobe sobre a faixa escura: o cartão do formulário é o objeto
+     principal da página e ganha destaque cruzando a divisa */
+  margin-top:clamp(-64px,-5vw,-40px);
+}
+
+.est-card{
+  position:relative;z-index:2;
+  background:#fff;border-radius:var(--r);
+  padding:clamp(24px,3.2vw,42px);
+  box-shadow:0 24px 60px rgba(6,11,30,.18);
+}
+
+/* ---------- blocos do formulário ---------- */
+/* Formulário único: todos os blocos ficam à vista. A divisória e o número
+   dão a orientação que a barra de progresso dava antes, sem esconder nada
+   nem obrigar a avançar em ordem. */
+.est-block{
+  border:0;padding:0 0 clamp(26px,3vw,34px);margin:0 0 clamp(26px,3vw,34px);
+  border-bottom:1px solid var(--line);
+}
+.est-block:last-of-type{border-bottom:0;padding-bottom:0;margin-bottom:0}
+
+.est-q{
+  display:flex;align-items:center;gap:12px;
+  font-family:var(--font-display);
+  font-size:clamp(1.15rem,2.1vw,1.45rem);font-weight:800;color:var(--navy);
+  line-height:1.25;letter-spacing:-.014em;margin-bottom:20px;padding:0;
+  text-wrap:balance;
+}
+.est-n{
+  display:grid;place-items:center;flex-shrink:0;
+  width:30px;height:30px;border-radius:50%;
+  background:var(--sky-w);color:var(--royal);
+  font-family:'Poppins',sans-serif;font-size:.85rem;font-weight:800;
+}
+.est-sub{
+  font-size:.79rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink);margin:22px 0 10px;
+}
+.est-block > .est-branch > .est-sub:first-child{margin-top:0}
+.est-hint{font-size:.88rem;color:var(--mute);margin-top:14px}
+.opt-tag{color:var(--mute);font-weight:400;text-transform:none;letter-spacing:0}
+
+/* ---------- cartões de opção (passos 1 e 2) ---------- */
+.opt-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.opt-grid-4{grid-template-columns:repeat(2,1fr)}
+.opt{display:block;cursor:pointer}
+/* o input fica visualmente escondido mas continua focável: sem isso
+   quem navega por teclado perde o anel de foco e não sabe onde está */
+.opt input{position:absolute;opacity:0;width:1px;height:1px}
+.opt-in{
+  display:block;height:100%;padding:16px 18px;
+  border:1.5px solid var(--line);border-radius:var(--r-s);background:#fff;
+  transition:border-color .16s ease,background .16s ease,box-shadow .16s ease;
+}
+.opt-in strong{display:block;color:var(--navy);font-size:.98rem;font-weight:700;line-height:1.3}
+.opt-in em{display:block;margin-top:4px;font-style:normal;font-size:.83rem;color:var(--body);line-height:1.45}
+.opt:hover .opt-in{border-color:var(--sky)}
+.opt input:focus-visible + .opt-in{outline:2px solid var(--royal);outline-offset:2px}
+.opt input:checked + .opt-in{
+  border-color:var(--royal);background:var(--sky-w);
+  box-shadow:0 0 0 3px rgba(37,99,201,.12);
+}
+.opt-sm .opt-in{padding:14px 16px;text-align:center}
+
+/* ---------- pílulas (número de quartos, banheiros, horário) ---------- */
+.pill-row{display:flex;flex-wrap:wrap;gap:9px}
+.pill{cursor:pointer}
+.pill input{position:absolute;opacity:0;width:1px;height:1px}
+.pill span{
+  display:inline-flex;align-items:center;justify-content:center;
+  min-width:52px;min-height:46px;padding:0 16px;
+  border:1.5px solid var(--line);border-radius:100px;background:#fff;
+  color:var(--ink);font-size:.92rem;font-weight:600;
+  transition:border-color .16s ease,background .16s ease,color .16s ease;
+}
+.pill:hover span{border-color:var(--sky)}
+.pill input:focus-visible + span{outline:2px solid var(--royal);outline-offset:2px}
+.pill input:checked + span{background:var(--royal);border-color:var(--royal);color:#fff}
+
+.fld-half{max-width:280px;margin-top:24px}
+
+/* ---------- envio ---------- */
+/* sticky no desktop: o formulário ficou longo, e sem isto o botão some
+   da tela enquanto a pessoa preenche o meio da página */
+.est-send{
+  position:sticky;bottom:0;z-index:3;
+  margin-top:clamp(26px,3vw,34px);padding-top:20px;
+  border-top:1px solid var(--line);background:#fff;
+}
+.est-legal{margin-top:14px;font-size:.82rem;line-height:1.5;color:var(--mute)}
+.est-card .qform-status{text-align:left}
+
+/* ---------- coluna de apoio ---------- */
+.est-side{position:relative;z-index:2;display:flex;flex-direction:column;gap:16px}
+.es-box{
+  background:#fff;border:1px solid var(--line);border-radius:var(--r);
+  padding:24px 22px;box-shadow:0 8px 26px rgba(17,24,47,.06);
+}
+.es-box h2{
+  font-size:1.02rem;color:var(--navy);margin-bottom:14px;
+  letter-spacing:-.014em;
+}
+.es-steps{list-style:none;counter-reset:es;display:grid;gap:14px}
+.es-steps li{
+  counter-increment:es;position:relative;padding-left:36px;
+  font-size:.9rem;line-height:1.5;color:var(--body);
+}
+.es-steps li::before{
+  content:counter(es);position:absolute;left:0;top:-1px;
+  display:grid;place-items:center;width:25px;height:25px;border-radius:50%;
+  background:var(--sky-w);color:var(--royal);font-size:.78rem;font-weight:800;
+}
+.es-steps strong{color:var(--ink);font-weight:700}
+.es-list{list-style:none;display:grid;gap:11px}
+.es-list li{
+  position:relative;padding-left:26px;font-size:.9rem;line-height:1.5;color:var(--body);
+}
+.es-list li::before{
+  content:"";position:absolute;left:0;top:.35em;width:15px;height:15px;
+  background:var(--acc);
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.es-call{
+  background:linear-gradient(150deg,var(--navy) 0%,var(--royal) 100%);
+  border-color:transparent;text-align:center;
+}
+.es-call-lbl{color:#fff;font-weight:700;font-size:1rem;margin-bottom:14px}
+.es-call-sub{margin-top:12px;font-size:.82rem;color:#C6D3EC}
+
+/* ---------- painel de sucesso ---------- */
+.est-card .qform-done h2{color:var(--navy);font-size:1.4rem;margin-bottom:10px}
+
+/* ============================================================
+   RESPONSIVO
+   ============================================================ */
+@media (max-width:980px){
+  .est-grid{grid-template-columns:1fr;margin-top:clamp(-48px,-4vw,-32px)}
+  /* a coluna de apoio desce para depois do formulário: no celular ela
+     empurraria o campo para baixo da dobra */
+  .est-side{order:2}
+  .est-card{order:1}
+}
+
+@media (max-width:640px){
+  .est-top{padding-top:34px}
+  .est-chips{gap:8px}
+  .est-chips li{font-size:.78rem;padding:7px 12px}
+  .opt-grid,.opt-grid-4{grid-template-columns:1fr}
+  .opt-sm .opt-in{text-align:left}
+  /* 16px trava o zoom automático do iOS ao focar o campo */
+  .est-card .fld input,
+  .est-card .fld select,
+  .est-card .fld textarea{font-size:16px;min-height:52px}
+  .pill span{min-height:48px}
+  /* no celular a barra fixa inferior (.mbar) já ocupa o rodapé da tela:
+     um botão sticky em cima dela empilharia dois elementos flutuantes */
+  .est-send{position:static}
+}

@@ -1,0 +1,1119 @@
+/* ============================================================
+   KD CLEANING SERVICES — Site institucional
+
+   LINGUAGEM VISUAL: mesma gramática do site da Zeal Care, feito
+   em Elementor. Os elementos que dão essa cara e que NÃO devem
+   ser "limpados" depois:
+
+   · shape divider (onda) entre seções — .shape / .shape-t / .shape-b
+   · seções com foto de fundo + overlay escuro — .sec-photo
+   · faixa flutuante sobrepondo o hero — .strip-wrap
+   · círculo de ícone com contorno
+   · card de destaque sobre a imagem (hero e about)
+   · botão pílula em cor de destaque
+   · filete curto com brilho embaixo do título — .rule
+
+   Paleta 100% do logo: marinho, royal, azul-claro.
+   ============================================================ */
+
+:root{
+  --navy:#16224B;
+  --navy-d:#0C1330;
+  --royal:#2563C9;
+  --royal-d:#1B4EA8;
+  --sky:#29A9E0;
+  --sky-w:#EAF5FC;
+
+  --acc:#2CAF22;          /* CTA, contraste contra o azul */
+  --acc-d:#22901A;
+
+  --ink:#11182F;
+  --body:#54607A;
+  --mute:#8A94A8;
+  --line:#E1E7F0;
+  --line-i:rgba(255,255,255,.18);
+  --bg:#fff;
+  --bg-s:#F4F8FC;
+
+  --err:#D33A3A;
+  /* Raios em três degraus, subidos em 19/08/2026 para aproximar da
+     referência (Zeal Care). O canto arredondado é o que mais carrega a
+     leitura de "delicado" — mais até que a cor. Não voltar para 14/8:
+     o card fica anguloso ao lado dos botões pílula, que são 100px.
+       --r-l  cards grandes (formulários, mapa, faixa da FAQ)
+       --r    cards de conteúdo e imagens
+       --r-s  campos de formulário e itens de lista */
+  --r-l:30px;
+  --r:22px;
+  --r-s:12px;
+  --wrap:1240px;
+
+  /* Nunito é a fonte de display: escolhida por ser o match mais próximo do
+     lettering "Cleaning" do logo — 'a' de dois andares, 'g' de rabo curto,
+     terminais levemente arredondados. Só nas heds; o corpo segue em Poppins,
+     que tem entrelinha mais confortável em texto corrido. */
+  --font-display:'Nunito',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+
+  /* Playfair Display: mesma classe da serifa do lettering "Cleaning" do
+     logo — contraste alto entre haste e junção, serifa em cunha no topo
+     das ascendentes, terminal em gota. Entra SÓ como textura decorativa
+     (.ghost e os números das etapas), nunca em texto para ler. */
+  --font-serif:'Playfair Display',Georgia,'Times New Roman',serif;
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:96px;-webkit-text-size-adjust:100%}
+
+body{
+  font-family:'Poppins',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+  color:var(--body);background:var(--bg);
+  font-size:16.5px;line-height:1.72;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;
+  -webkit-tap-highlight-color:rgba(37,99,201,.14);
+}
+img{max-width:100%;height:auto;display:block}
+
+/* tracking bem menos negativo que o da Poppins: a Nunito já é mais estreita
+   e mais pesada, com -.028em as letras encostam nos pesos 800/900 */
+h1,h2,h3,h4{font-family:var(--font-display);color:var(--ink);font-weight:800;text-wrap:balance;letter-spacing:-.014em}
+h1{font-size:clamp(2.05rem,4vw,3.4rem);line-height:1.1;font-weight:900}
+h2{font-size:clamp(1.75rem,3.2vw,2.65rem);line-height:1.15;font-weight:900}
+h3{font-size:1.22rem;line-height:1.32;letter-spacing:-.01em}
+p{text-wrap:pretty}
+a{color:var(--royal);text-decoration:none}
+:focus-visible{outline:3px solid var(--sky);outline-offset:3px}
+
+.wrap{max-width:var(--wrap);margin:0 auto;padding:0 28px;position:relative;z-index:2}
+/* relative + overflow: as estrelinhas decorativas são posicionadas em
+   relação à seção e sangram pelas bordas; o overflow é o que corta
+   o excedente sem criar barra de rolagem horizontal */
+.sec{padding:clamp(64px,7.5vw,110px) 0;position:relative;overflow:hidden;isolation:isolate}
+
+/* ---------- brilhos decorativos ---------- */
+/* posição vem do style inline de cada um; aqui só o material e o flutuar.
+   z-index:-1 + isolation:isolate na seção = fica acima do fundo dela e
+   atrás do conteúdo, nunca por cima de texto. */
+.spark{
+  position:absolute;z-index:-1;pointer-events:none;
+  width:var(--s,36px);height:var(--s,36px);opacity:var(--o,.3);
+  background:var(--c,var(--sky));
+  -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z'/%3E%3C/svg%3E") center/contain no-repeat;
+  mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z'/%3E%3C/svg%3E") center/contain no-repeat;
+  animation:spark-float var(--d,11s) ease-in-out var(--dl,0s) infinite;
+}
+@keyframes spark-float{
+  0%,100%{transform:translate3d(0,0,0) rotate(0deg)}
+  50%{transform:translate3d(8px,-22px,0) rotate(20deg)}
+}
+@media (prefers-reduced-motion:reduce){.spark{animation:none}}
+
+/* ---------- palavra-fantasma ---------- */
+/* Camada de textura: o rótulo da seção repetido em corpo enorme na serifa
+   do logo, quase apagado, atrás do título. Não é redundância com o
+   .eyebrow — um é caixa-alta miúda em sans, o outro é uma mancha; leem
+   como camadas diferentes. Nunca colocar aqui palavra que não exista já
+   na seção: em 5% de opacidade continua sendo uma afirmação. */
+.ghost{
+  position:absolute;z-index:-1;
+  left:50%;top:50%;transform:translate(-50%,-54%);
+  font-family:var(--font-serif);font-weight:900;
+  font-size:clamp(4.4rem,13vw,11rem);line-height:.78;
+  letter-spacing:-.045em;white-space:nowrap;
+  color:var(--navy);opacity:.055;
+  pointer-events:none;user-select:none;
+}
+/* z-index:-1 fica atrás do conteúdo do .wrap mas ainda dentro do contexto
+   de empilhamento dele, ou seja, acima do fundo da seção. Mesmo mecanismo
+   das .spark. O que corta o excesso é o overflow:hidden da .sec. */
+.sec-head.inv .ghost,
+.sec-photo .ghost{color:#fff;opacity:.07}
+
+/* variante alinhada à esquerda, para as seções em duas colunas. Sobe mais
+   que a centralizada para as descendentes não caírem sobre o .eyebrow */
+.ghost-l{left:0;top:0;transform:translate(-.045em,-58%)}
+
+/* ---------- cabeçalho de seção ---------- */
+.sec-head{position:relative;max-width:760px;margin:0 auto clamp(38px,4.6vw,58px);text-align:center}
+.sec-head.inv h2{color:#fff}
+.sec-cta{margin-top:clamp(38px,4.6vw,56px);text-align:center}
+
+.eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  color:var(--sky);font-size:.78rem;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;margin-bottom:16px;
+}
+.eyebrow i{
+  width:14px;height:14px;flex-shrink:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 0l3 9 9 3-9 3-3 9-3-9-9-3 9-3z' fill='%2329A9E0'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.ey-c{justify-content:center}
+
+/* Filete com coração no centro. Era um losango de brilho; virou coração em
+   19/08/2026 a pedido da cliente, que quis a mesma delicadeza da referência.
+   O coração fica em --sky, NÃO em rosa: a paleta continua sendo só a do logo,
+   quem carrega o "fofo" aqui é a forma, não uma cor nova.
+   O losango continua vivo no .eyebrow e nas .spark — são a assinatura de
+   "limpeza" do logo e não competem com o coração, que aparece uma vez só
+   por dobra, embaixo do título. */
+.rule{
+  display:block;width:118px;height:16px;margin:18px auto 0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 118 16'%3E%3Cpath d='M0 8h42M76 8h42' stroke='%2329A9E0' stroke-width='1.6' stroke-linecap='round'/%3E%3Cpath d='M59 14.6c-.3 0-.6-.1-.8-.3C54.4 11 52 8.8 52 6.2A3.7 3.7 0 0 1 55.7 2.5c1.3 0 2.5.6 3.3 1.6.8-1 2-1.6 3.3-1.6A3.7 3.7 0 0 1 66 6.2c0 2.6-2.4 4.8-6.2 8.1-.2.2-.5.3-.8.3z' fill='%2329A9E0'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+.rule-l{margin-left:0;margin-right:0}
+
+/* ---------- botões pílula ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font-family:inherit;font-size:.85rem;font-weight:700;line-height:1.15;
+  letter-spacing:.06em;text-transform:uppercase;
+  padding:18px 34px;min-height:54px;border:2px solid transparent;border-radius:100px;
+  cursor:pointer;text-align:center;
+  transition:background .18s ease,color .18s ease,border-color .18s ease,transform .12s ease,box-shadow .18s ease;
+}
+.btn:active{transform:translateY(1px)}
+.btn-accent{background:var(--acc);color:#fff;box-shadow:0 8px 22px rgba(44,175,34,.3)}
+.btn-accent:hover{background:var(--acc-d);color:#fff;box-shadow:0 12px 30px rgba(44,175,34,.4)}
+.btn-solid{background:var(--royal);color:#fff}
+.btn-solid:hover{background:var(--navy);color:#fff}
+.btn-line{background:transparent;color:#fff;border-color:rgba(255,255,255,.55)}
+.btn-line:hover{background:#fff;color:var(--navy);border-color:#fff}
+.btn-light{background:#fff;color:var(--navy)}
+.btn-light:hover{background:var(--sky);color:#fff}
+.btn-outline{background:transparent;color:var(--navy);border-color:var(--line)}
+.btn-outline:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.btn-sm{padding:13px 24px;min-height:46px;font-size:.75rem}
+.btn-lg{padding:20px 38px;min-height:58px}
+.btn-full{width:100%}
+
+/* ---------- shape dividers (assinatura Elementor) ---------- */
+.shape{position:absolute;left:0;right:0;line-height:0;z-index:1;pointer-events:none}
+.shape svg{display:block;width:calc(100% + 2px);height:clamp(44px,4.6vw,74px)}
+/* a onda é preenchida com a cor da seção VIZINHA, não com branco fixo:
+   ela finge ser o recorte da seção seguinte invadindo a atual */
+.shape-b{bottom:-1px}
+.shape-b svg{fill:#fff}
+.shape-t{top:-1px}
+.shape-t svg{fill:#fff}
+/* abaixo do "how it works" vem a FAQ, que é cinza — com branco aqui
+   sobrava uma faixa clara entre a onda e o início da seção */
+.how .shape-b svg{fill:var(--bg-s)}
+/* o contato é o navy que vem depois da FAQ: a onda que invade tem de
+   ser cinza, pela mesma regra — a onda é sempre a cor da seção VIZINHA */
+.contact .shape-t svg{fill:var(--bg-s)}
+
+/* ---------- topbar ---------- */
+.topbar{
+  background:linear-gradient(90deg,var(--sky) 0%,var(--royal) 55%,var(--navy) 100%);
+  color:#fff;font-size:.83rem;
+}
+.topbar-in{display:flex;align-items:center;justify-content:space-between;gap:20px;min-height:44px}
+.tb-phone{display:inline-flex;align-items:center;gap:8px;color:#fff;font-weight:700}
+.tb-phone svg{width:15px;height:15px;fill:#fff}
+.tb-phone:hover{color:#fff;opacity:.85}
+
+/* ---------- header ---------- */
+.hdr{position:sticky;top:0;z-index:60;background:#fff;box-shadow:0 2px 14px rgba(17,24,47,.07)}
+
+/* FILETE + CORAÇÃO NA BASE DO HEADER — assinatura do header da referência
+   (Zeal Care), pedida pela cliente em 19/08/2026. São três camadas na mesma
+   linha, e a ordem de pintura é o que faz funcionar:
+     ::before   trilho claro de 2px, largura toda      (pinta primeiro)
+     .hdr-prog  barra de progresso, sólida, por cima   (elemento real)
+     ::after    o coração, centrado, por último        (pinta por cima de tudo)
+   Pseudo-elemento ::before para o trilho e ::after para o coração NÃO é
+   escolha estética: dentro do mesmo contexto de empilhamento o ::before
+   pinta antes dos filhos e o ::after depois. Invertendo os dois, o trilho
+   cobriria a barra de progresso.
+   Ganho de brinde: a barra de progresso agora corre sobre um trilho, em vez
+   de crescer sobre o nada. */
+.hdr::before{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:3px;
+  background:rgba(41,169,224,.28);pointer-events:none;
+}
+/* O coração é o MESMO desenho da régua das seções — o path é idêntico, só
+   com o viewBox recortado em volta dele. Se um dia o coração da .rule mudar,
+   mudar aqui também, senão a página passa a ter dois corações diferentes. */
+.hdr::after{
+  content:"";position:absolute;left:50%;bottom:-11px;transform:translateX(-50%);
+  width:26px;height:24px;pointer-events:none;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='51.5 1.8 15 13.4'%3E%3Cpath d='M59 14.6c-.3 0-.6-.1-.8-.3C54.4 11 52 8.8 52 6.2A3.7 3.7 0 0 1 55.7 2.5c1.3 0 2.5.6 3.3 1.6.8-1 2-1.6 3.3-1.6A3.7 3.7 0 0 1 66 6.2c0 2.6-2.4 4.8-6.2 8.1-.2.2-.5.3-.8.3z' fill='%2329A9E0'/%3E%3C/svg%3E") center/contain no-repeat;
+  /* a metade de baixo do coração cai sobre a foto do hero, que é escura e
+     movimentada: a sombra curta é o que separa o azul do fundo */
+  filter:drop-shadow(0 1px 2px rgba(6,11,30,.22));
+  transition:opacity .25s ease,transform .25s ease;
+}
+/* .is-stuck vem do home.js assim que a página sai do topo. Ver o comentário
+   lá: com o header fixo, um coração pendurado permanente atravessa a página
+   inteira por cima do conteúdo. Ele recolhe para dentro do header em vez de
+   simplesmente sumir — some sem piscar. */
+.hdr.is-stuck::after{opacity:0;transform:translateX(-50%) translateY(-8px)}
+/* quem pediu menos animação recebe o corte seco, não o fade */
+@media (prefers-reduced-motion:reduce){.hdr::after{transition:none}}
+/* Três colunas com laterais de mesma largura (1fr auto 1fr): o menu
+   fica centralizado na PÁGINA, não no espaço que sobra entre o logo
+   e o botão, que têm larguras diferentes. */
+.hdr-in{
+  display:grid;grid-template-columns:1fr auto 1fr;
+  align-items:center;gap:24px;min-height:84px;
+}
+.brand{justify-self:start}
+.brand img{width:200px}
+
+/* barra de progresso de leitura, presa na base do header. A altura tem de
+   ser a mesma do trilho em .hdr::before, senão sobra um degrau de 1px */
+.hdr-prog{
+  position:absolute;left:0;bottom:0;height:3px;width:0;
+  background:var(--sky);transition:width .1s linear;pointer-events:none;
+}
+
+/* o padding lateral vive no link, não só no estado ativo: assim a pílula
+   aparece sem empurrar os vizinhos quando a dobra muda. gap menor
+   compensa o padding e mantém o respiro original entre os itens. */
+.nav{display:flex;gap:2px;align-items:center;justify-self:center}
+.nav a{color:var(--navy);font-size:.83rem;font-weight:600;letter-spacing:.08em;
+  text-transform:uppercase;padding:9px 14px;position:relative;border-radius:999px;
+  transition:background-color .2s ease,color .2s ease}
+.nav a::after{content:"";position:absolute;left:14px;right:14px;bottom:3px;height:2px;
+  background:var(--sky);transform:scaleX(0);transform-origin:left;transition:transform .2s ease}
+.nav a:hover::after{transform:scaleX(1)}
+/* dobra ativa: pílula marinho. O sublinhado sai, senão vira ruído dentro dela */
+.nav a.on{background:var(--navy);color:#fff}
+.nav a.on::after{display:none}
+.nav-cta{display:none} /* só aparece dentro da gaveta mobile */
+.hdr-cta{justify-self:end}
+.burger{display:none;background:none;border:0;cursor:pointer;padding:10px;margin-left:auto}
+.burger span{display:block;width:26px;height:2px;background:var(--navy);margin:5px 0;transition:.2s}
+.burger[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+
+/* ---------- HERO ---------- */
+.hero{position:relative;background:var(--navy-d);color:#fff;overflow:hidden;isolation:isolate}
+.hero-bg{position:absolute;inset:0;z-index:-2}
+.hero-bg img{width:100%;height:100%;object-fit:cover}
+/* Véu escuro só do lado do texto. A coluna da esquerda precisa dele para
+   o branco ter contraste; a da direita é o card do formulário, que é
+   branco e opaco e se resolve sozinho — deixar a foto limpa ali.
+   O último ponto é rgba(...,0) e não `transparent`: transparent é
+   rgba(0,0,0,0) e alguns navegadores interpolam passando por cinza,
+   deixando uma faixa suja no meio do degradê. */
+.hero::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(104deg,
+    rgba(9,14,36,.94) 0%,
+    rgba(11,18,45,.86) 32%,
+    rgba(15,24,58,.6) 46%,
+    rgba(20,31,70,.2) 60%,
+    rgba(22,34,75,0) 72%);
+}
+.hero-glow{
+  position:absolute;width:520px;height:520px;right:-120px;top:-160px;z-index:-1;
+  background:radial-gradient(circle,rgba(41,169,224,.32),transparent 68%);pointer-events:none;
+}
+.hero-in{
+  display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(32px,4vw,60px);align-items:center;
+  /* o recuo inferior reserva o espaço que a faixa flutuante ocupa */
+  padding-top:clamp(58px,7vw,100px);padding-bottom:clamp(104px,11vw,158px);
+}
+.hero h1{color:#fff}
+.hero-sub{margin-top:22px;max-width:52ch;color:#C6D3EC;
+  font-size:clamp(1rem,1.3vw,1.13rem);line-height:1.7;font-weight:300}
+.hero-act{display:flex;gap:14px;flex-wrap:wrap;margin-top:34px}
+
+/* formulário no hero: conversão já na primeira dobra */
+/* overflow:hidden é o que faz o filete do topo acompanhar a curva do card.
+   Com raio de 30px e filete de 5px, o próprio border-radius no ::before não
+   resolve: 5px de altura não desenham uma curva de 30px, e o filete fica
+   boiando reto sobre um card arredondado. Quem recorta é o card.
+   Nada precisa vazar daqui — o :focus-visible dos campos tem offset de 3px
+   e sobra padding de 28px de folga. */
+.hero-form{
+  background:#fff;border-radius:var(--r-l);padding:30px 28px 28px;
+  box-shadow:0 26px 70px rgba(6,11,30,.34);position:relative;overflow:hidden;
+}
+.hero-form::before{
+  content:"";position:absolute;inset:0 0 auto 0;height:5px;
+  background:linear-gradient(90deg,var(--sky),var(--royal),var(--navy));
+}
+.hf-head{margin-bottom:22px}
+.hf-badge{
+  display:inline-block;background:rgba(44,175,34,.12);color:#1B7A15;
+  font-size:.71rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  padding:7px 15px;border-radius:100px;margin-bottom:13px;
+}
+.hero-form h2{color:var(--navy);font-size:1.52rem;margin-bottom:9px;letter-spacing:-.012em}
+.hf-head p{color:var(--body);font-size:.9rem;line-height:1.55}
+.hero-form .fld{margin-bottom:15px}
+.hero-form .qform-submit{margin-top:4px}
+
+/* ---------- faixa de benefícios ----------
+   Faixa clara sobrepondo a borda RETA do hero. Ícone à esquerda,
+   rótulo à direita na mesma linha, divisória vertical fina entre
+   os itens. A borda do hero precisa continuar reta: onda por
+   baixo de retângulo deixa o retângulo com aparência de torto. */
+/* --ov é o quanto a faixa sobe sobre o hero. O degradê deixa esses
+   primeiros --ov transparentes (senão pintaria por cima do hero) e
+   assume o cinza da seção seguinte no resto — sem ele sobrava uma
+   faixa branca do fundo do body entre o hero e os serviços. */
+.strip-wrap{
+  --ov:62px;
+  position:relative;z-index:5;margin-top:calc(var(--ov) * -1);
+  background:linear-gradient(transparent 0 var(--ov),var(--bg-s) var(--ov));
+}
+.strip{
+  list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:0;
+  background:#fff;border-radius:var(--r-l);padding:26px 18px;
+  box-shadow:0 18px 52px rgba(17,24,47,.1);
+}
+.strip li{
+  display:flex;align-items:center;gap:16px;
+  padding:6px 22px;border-right:1px solid var(--line);
+}
+.strip li:last-child{border-right:0}
+/* ícone dentro de um disco azul-claro em vez de solto e chapado em marinho:
+   o glifo cheio de 46px era o elemento mais pesado da primeira dobra */
+.st-ico{
+  display:grid;place-items:center;flex-shrink:0;width:48px;height:48px;
+  border-radius:50%;background:var(--sky-w);border:1px solid rgba(41,169,224,.22);
+}
+.st-ico svg{width:25px;height:25px;fill:var(--royal)}
+.strip strong{
+  color:var(--navy);font-size:1.02rem;font-weight:700;
+  line-height:1.32;letter-spacing:-.02em;
+}
+
+/* ---------- SERVIÇOS (carrossel) ---------- */
+.services{background:var(--bg-s);padding-top:clamp(58px,6.5vw,92px)}
+
+/* filtro residencial / comercial */
+.svc-filter{
+  display:inline-flex;gap:4px;margin:0 auto clamp(30px,3.4vw,44px);
+  padding:5px;background:#fff;border-radius:100px;
+  box-shadow:0 3px 14px rgba(17,24,47,.09);
+}
+/* :first-of-type, não :first-child — os brilhos decorativos são os
+   primeiros filhos da seção e quebravam a centralização do filtro */
+.services > .wrap:first-of-type{text-align:center}
+.sf-btn{
+  border:0;cursor:pointer;font-family:inherit;
+  padding:13px 30px;border-radius:100px;background:transparent;
+  color:var(--body);font-size:.82rem;font-weight:700;
+  letter-spacing:.09em;text-transform:uppercase;
+  transition:background .2s ease,color .2s ease;
+}
+.sf-btn:hover{color:var(--royal)}
+.sf-btn.is-on{background:var(--royal);color:#fff}
+
+/* itens extraídos da descrição de cada serviço */
+.svc-tags{list-style:none;display:flex;flex-wrap:wrap;gap:7px;margin-bottom:22px}
+.svc-tags li{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--sky-w);color:var(--navy);
+  border-radius:100px;padding:6px 13px;font-size:.79rem;font-weight:600;
+}
+.svc-tags li::before{
+  content:"";width:12px;height:12px;flex-shrink:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232563C9' stroke-width='3.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6L9 17l-5-5'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+.car-in{position:relative}
+.svc[hidden]{display:none}
+.car-track{
+  display:flex;gap:26px;
+  overflow-x:auto;scroll-snap-type:x mandatory;
+  scroll-padding-left:0;padding:6px 0 22px;
+  scrollbar-width:none;-ms-overflow-style:none;
+}
+.car-track::-webkit-scrollbar{display:none}
+.car-track > .svc{
+  flex:0 0 calc((100% - 52px) / 3);
+  scroll-snap-align:start;
+}
+
+.car-nav{
+  position:absolute;top:38%;z-index:6;
+  display:grid;place-items:center;width:50px;height:50px;
+  border:0;border-radius:50%;background:#fff;color:var(--navy);cursor:pointer;
+  box-shadow:0 8px 24px rgba(17,24,47,.2);
+  transition:background .18s ease,color .18s ease,opacity .18s ease;
+}
+.car-nav svg{width:24px;height:24px;fill:currentColor}
+.car-nav:hover{background:var(--royal);color:#fff}
+.car-nav:disabled{opacity:.32;cursor:default}
+.car-nav:disabled:hover{background:#fff;color:var(--navy)}
+.car-prev{left:-22px}
+.car-next{right:-22px}
+
+/* MODO ESTÁTICO — o JS liga .is-static quando os cards da aba cabem na
+   largura e não há transbordo. Some com os controles e devolve a trilha
+   ao comportamento de grade.
+   O overflow-x:auto FICA: é ele que mantém scrollWidth mensurável. Trocar
+   por visible zera a medição e o carrossel nunca mais volta ao redimensionar
+   a janela. */
+.car.is-static .car-nav,
+.car.is-static .car-dots{display:none}
+.car.is-static .car-track{scroll-snap-type:none;justify-content:center}
+
+.car-dots{display:flex;justify-content:center;gap:9px;margin-top:6px}
+.car-dot{
+  width:9px;height:9px;padding:0;border:0;border-radius:50%;cursor:pointer;
+  background:#C4D0E2;transition:background .2s ease,width .2s ease;
+}
+.car-dot.on{background:var(--royal);width:28px;border-radius:100px}
+
+.svc{
+  background:#fff;border-radius:var(--r);overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:0 6px 28px rgba(17,24,47,.06);
+  transition:transform .24s ease,box-shadow .24s ease;
+}
+.svc:hover{transform:translateY(-6px);box-shadow:0 22px 54px rgba(17,24,47,.11)}
+.svc-img{position:relative;overflow:hidden;aspect-ratio:4/3;background:var(--sky-w)}
+.svc-img img{width:100%;height:100%;object-fit:cover;transition:transform .55s cubic-bezier(.2,.7,.3,1)}
+.svc:hover .svc-img img{transform:scale(1.07)}
+.svc-img::after{content:"";position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(12,19,48,.5),transparent 48%)}
+.svc-body{padding:28px 26px 30px;display:flex;flex-direction:column;flex:1}
+.svc-body h3{margin-bottom:11px;color:var(--navy);font-size:1.28rem}
+.svc-body p{font-size:.95rem;margin-bottom:22px}
+.svc-link{
+  margin-top:auto;align-self:flex-start;display:inline-flex;align-items:center;gap:8px;
+  color:var(--royal);font-size:.79rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+}
+.svc-link b{transition:transform .2s ease}
+.svc-link:hover{color:var(--acc)}
+.svc-link:hover b{transform:translateX(4px)}
+
+/* ---------- ABOUT ----------
+   Card de vidro sobre foto, igual à dobra de passos. A foto fica dentro
+   de um painel arredondado em vez de sangrar na largura toda — ver o
+   comentário no HTML: logo abaixo vem o Why Choose Us, que já é foto
+   sangrada, e duas telas escuras seguidas pesavam a rolagem.
+   Substituiu o grid de duas colunas com três imagens soltas
+   (.about-grid/.about-media/.am-*) em 19/08/2026. */
+.ab-photo{
+  position:relative;overflow:hidden;isolation:isolate;
+  display:grid;justify-items:end;align-items:center;
+  padding:clamp(28px,3.6vw,60px);
+  border-radius:var(--r-l);
+  box-shadow:0 24px 62px rgba(17,24,47,.16);
+}
+/* a foto é conteúdo de fundo: z-index -2 para o véu e as bolhas ficarem
+   entre ela e o card, exatamente como em .sec-photo */
+.ab-bg{position:absolute;inset:0;z-index:-2;width:100%;height:100%;object-fit:cover}
+/* véu único e moderado: o card já tem fundo próprio para segurar o texto,
+   então aqui não precisa (nem deve) escurecer até a foto sumir */
+.ab-photo::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(100deg,
+    rgba(9,14,36,.58) 0%,
+    rgba(11,18,45,.4) 46%,
+    rgba(15,24,58,.38) 100%);
+}
+
+.ab-card{
+  position:relative;max-width:600px;text-align:center;color:#C6D3EC;
+  padding:clamp(26px,3.2vw,44px) clamp(22px,2.8vw,40px);
+  border-radius:var(--r-l);
+  background:linear-gradient(180deg,rgba(22,34,75,.72) 0%,rgba(9,15,38,.82) 100%);
+  border:1px solid rgba(255,255,255,.14);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  box-shadow:0 18px 50px rgba(6,11,30,.3);
+}
+.ab-card h2{color:#fff}
+.ab-card .rule{margin-bottom:22px}
+.ab-card p{font-size:1rem}
+.ab-card p + p{margin-top:15px}
+.ab-card .btn{margin-top:26px}
+
+/* a ficha "8+ anos" era um bloco verde flutuando fora da imagem; dentro do
+   card vira pílula. Verde aqui roubaria o botão, que fica logo abaixo */
+.ab-stat{
+  display:inline-flex;align-items:center;gap:13px;margin-top:24px;
+  padding:11px 22px;border-radius:100px;
+  background:rgba(41,169,224,.14);border:1px solid rgba(41,169,224,.42);
+}
+.ab-stat strong{
+  font-family:var(--font-display);font-size:1.72rem;line-height:1;
+  font-weight:900;letter-spacing:-.025em;color:#fff;
+}
+.ab-stat span{font-size:.85rem;line-height:1.3;text-align:left}
+
+/* ---------- SEÇÃO COM FOTO DE FUNDO ---------- */
+.sec-photo{
+  position:relative;overflow:hidden;isolation:isolate;color:#C6D3EC;
+  padding:clamp(90px,9vw,140px) 0;background:var(--navy-d);
+}
+.ph-bg{position:absolute;inset:0;z-index:-2}
+.ph-bg img{width:100%;height:100%;object-fit:cover}
+.sec-photo::before{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(180deg,rgba(9,14,36,.93) 0%,rgba(13,21,53,.88) 50%,rgba(9,14,36,.94) 100%);
+}
+
+/* bolhas de sabão: z-index -1 e depois do ::before no DOM, então ficam
+   sobre o degradê e sob o conteúdo. Anima só transform/opacity. */
+.bubbles{position:absolute;inset:0;z-index:-1;overflow:hidden;pointer-events:none}
+.bubbles i{
+  position:absolute;bottom:-12vh;left:var(--x);
+  width:var(--s);height:var(--s);border-radius:50%;opacity:0;
+  background:radial-gradient(circle at 32% 28%,
+    rgba(255,255,255,.5) 0 9%,rgba(160,214,244,.16) 40%,
+    rgba(41,169,224,.1) 68%,rgba(255,255,255,.04) 100%);
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:inset 0 -3px 8px rgba(255,255,255,.16),0 0 12px rgba(110,193,228,.12);
+  animation:bub var(--d) linear var(--t) infinite;
+  will-change:transform,opacity;
+}
+@keyframes bub{
+  0%{transform:translate3d(0,0,0) scale(.65);opacity:0}
+  10%{opacity:.8}
+  50%{transform:translate3d(20px,-55vh,0) scale(1)}
+  82%{opacity:.55}
+  100%{transform:translate3d(-14px,-112vh,0) scale(1.08);opacity:0}
+}
+/* movimento de fundo não pode brigar com quem pediu menos animação */
+@media (prefers-reduced-motion:reduce){.bubbles{display:none}}
+
+/* why */
+/* 5 cards agora. Colunas iguais deixariam cada card estreito demais para
+   o título de duas palavras: auto-fit com mínimo de 210px acomoda 5 em
+   tela larga e reflui sozinho para 3+2 e 2+2+1 conforme aperta. */
+.why-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px;
+}
+/* cartões brancos sobre a foto escura: recortam do fundo e sobem o
+   contraste do texto, então aqui o texto é escuro, não claro */
+.why-i{
+  background:#fff;border:1px solid rgba(17,24,47,.06);
+  border-radius:var(--r);padding:34px 26px 32px;text-align:center;
+  box-shadow:0 18px 48px rgba(6,11,30,.28);
+  transition:box-shadow .22s ease,transform .22s ease;
+}
+.why-i:hover{box-shadow:0 26px 62px rgba(6,11,30,.36);transform:translateY(-5px)}
+/* sem glow: sobre o card branco o halo azul virava borrão sujo */
+.why-ic{display:grid;place-items:center;width:64px;height:64px;margin:0 auto 20px;
+  border-radius:50%;background:var(--sky)}
+.why-ic svg{width:28px;height:28px;fill:#fff}
+.why-i h3{color:var(--navy);margin-bottom:11px;font-size:1.12rem}
+.why-i p{font-size:.92rem;line-height:1.65;color:var(--body)}
+
+/* how */
+/* gap de 52px: é ele que abre a calha onde o conector redondo cabe
+   inteiro, sem montar em cima dos cards vizinhos */
+.steps{list-style:none;counter-reset:step;display:grid;grid-template-columns:repeat(3,1fr);
+  gap:52px;position:relative}
+/* vidro escuro em vez de branco transparente: sobre a foto, o branco a 7%
+   deixava o texto competindo com o fundo em vez de descolar dele */
+.steps li{
+  counter-increment:step;position:relative;text-align:center;
+  padding:40px 30px 38px;border-radius:var(--r);
+  background:linear-gradient(180deg,rgba(22,34,75,.72) 0%,rgba(9,15,38,.8) 100%);
+  border:1px solid rgba(255,255,255,.13);
+  -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  box-shadow:0 18px 50px rgba(6,11,30,.26);
+  transition:transform .24s ease,border-color .24s ease,box-shadow .24s ease;
+}
+/* número em marca d'água: dá ordem de leitura sem virar mais um texto.
+   Fica dentro dos limites do card de propósito — o li não pode ter
+   overflow:hidden, senão corta a seta que fica pendurada fora dele. */
+.steps li::before{
+  content:counter(step,decimal-leading-zero);
+  position:absolute;top:8px;right:16px;pointer-events:none;
+  font-family:var(--font-serif);font-size:3.8rem;font-weight:900;line-height:1;color:rgba(255,255,255,.07);
+}
+.steps li:hover{
+  transform:translateY(-6px);border-color:rgba(41,169,224,.5);
+  box-shadow:0 26px 62px rgba(6,11,30,.38);
+}
+/* badge em azul, não verde: verde aqui é cor de botão, e um disco verde
+   não clicável logo acima do CTA rouba a atenção dele */
+.st-n{
+  display:grid;place-items:center;width:62px;height:62px;margin:0 auto 20px;
+  border-radius:50%;color:#fff;font-size:1.3rem;font-weight:800;
+  background:linear-gradient(150deg,var(--sky) 0%,var(--royal) 100%);
+  box-shadow:0 0 0 6px rgba(41,169,224,.12);
+  transition:box-shadow .24s ease;
+}
+.steps li:hover .st-n{box-shadow:0 0 0 10px rgba(41,169,224,.18)}
+.steps h3{color:#fff;margin-bottom:11px;font-size:1.16rem}
+.steps p{font-size:.94rem;line-height:1.65;color:#C6D3EC}
+/* conector: ficha redonda de 48px centrada nos dois eixos — na calha de
+   52px (right:-50px) e na altura do card (top:50% menos meia-ficha).
+   margin-top em vez de translate: o transform é do giro no mobile. */
+.steps li:not(:last-child)::after{
+  content:"";position:absolute;right:-50px;top:50%;margin-top:-24px;
+  width:48px;height:48px;z-index:3;
+  border-radius:50%;border:1px solid rgba(41,169,224,.45);
+  background:rgba(9,15,38,.85) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2329A9E0' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E") center/24px no-repeat;
+  box-shadow:0 8px 20px rgba(6,11,30,.45);
+  transition:border-color .24s ease,background-color .24s ease;
+}
+.steps li:hover::after{border-color:var(--sky);background-color:rgba(41,169,224,.2)}
+
+/* ---------- PORTFÓLIO ---------- */
+/* Grade de 12 colunas em duas fileiras que FECHAM exatas:
+   5+3+4 e 5+4+3. A grade anterior era de 4 colunas com spans que
+   sobravam, e a última fileira deixava metade da linha vazia.
+   As larguras maiores vão para as fotos de detalhe (armário e
+   rodapé), que são o pilar 01 do mapeamento. */
+.work-grid{
+  display:grid;grid-template-columns:repeat(12,1fr);
+  grid-auto-rows:clamp(210px,20vw,290px);gap:16px;
+}
+.work-grid figure:nth-child(1){grid-column:span 5}
+.work-grid figure:nth-child(2){grid-column:span 3}
+.work-grid figure:nth-child(3){grid-column:span 4}
+.work-grid figure:nth-child(4){grid-column:span 5}
+.work-grid figure:nth-child(5){grid-column:span 4}
+.work-grid figure:nth-child(6){grid-column:span 3}
+.work-grid figure{overflow:hidden;border-radius:var(--r);background:var(--sky-w);position:relative}
+.work-grid img{width:100%;height:100%;object-fit:cover;transition:transform .55s cubic-bezier(.2,.7,.3,1)}
+.work-grid figure::after{
+  content:"";position:absolute;inset:0;background:rgba(37,99,201,0);transition:background .3s ease;
+}
+.work-grid figure:hover::after{background:rgba(37,99,201,.22)}
+.work-grid figure:hover img{transform:scale(1.07)}
+/* legenda nomeando o detalhe: é o pilar 01 do mapeamento,
+   que antes existia no texto mas não na imagem.
+   Degradê curto e concentrado embaixo, para não lavar o meio da foto. */
+.work-grid figcaption{
+  position:absolute;left:0;right:0;bottom:0;z-index:2;
+  display:flex;align-items:center;gap:10px;
+  padding:44px 20px 18px;
+  background:linear-gradient(to top,
+    rgba(7,11,30,.9) 0%,
+    rgba(7,11,30,.62) 38%,
+    transparent 100%);
+  color:#fff;font-size:.94rem;font-weight:600;letter-spacing:-.015em;
+  transform:translateY(4px);transition:transform .3s ease;
+}
+.work-grid figcaption::before{
+  content:"";width:20px;height:2px;flex-shrink:0;background:var(--sky);
+  transition:width .3s ease;
+}
+.work-grid figure:hover figcaption{transform:none}
+.work-grid figure:hover figcaption::before{width:34px}
+
+/* ---------- FAQ ---------- */
+.faq{background:var(--bg-s)}
+/* FAQ tradicional: cabeçalho centralizado, lista em coluna única.
+   A largura travada mantém a linha de pergunta legível — a lista
+   esticada nos 1240px do wrap ficaria com linhas longas demais. */
+.faq-list{max-width:880px;margin:0 auto}
+/* a caixa de contato saiu da lateral e virou o fecho da dobra */
+.faq-box{
+  max-width:880px;margin:34px auto 0;
+  display:flex;align-items:center;gap:22px;flex-wrap:wrap;
+  background:linear-gradient(120deg,var(--navy) 0%,var(--royal) 100%);
+  border-radius:var(--r-l);padding:26px 30px;color:#D5E1F7;
+  box-shadow:0 18px 46px rgba(17,24,47,.14);
+}
+.fb-ico{display:grid;place-items:center;width:54px;height:54px;flex-shrink:0;
+  border-radius:50%;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.38)}
+.fb-ico svg{width:23px;height:23px;fill:#fff}
+.faq-box h3{flex:1;min-width:220px;color:#fff;font-size:1.16rem}
+.faq-box .btn{flex-shrink:0}
+.qa{background:#fff;border-radius:var(--r);margin-bottom:12px;
+  box-shadow:0 2px 10px rgba(17,24,47,.06);overflow:hidden}
+.qa[open]{box-shadow:0 10px 28px rgba(17,24,47,.12)}
+.qa summary{
+  list-style:none;cursor:pointer;position:relative;padding:22px 60px 22px 24px;
+  font-size:1.02rem;font-weight:600;color:var(--navy);line-height:1.4;
+}
+.qa summary::-webkit-details-marker{display:none}
+.qa summary:hover{color:var(--royal)}
+.qa summary::after{
+  content:"+";position:absolute;right:22px;top:50%;transform:translateY(-50%);
+  display:grid;place-items:center;width:30px;height:30px;border-radius:50%;
+  background:var(--sky-w);color:var(--royal);font-size:1.3rem;font-weight:400;line-height:1;
+  transition:background .2s ease,color .2s ease;
+}
+.qa[open] summary::after{content:"\2212";background:var(--royal);color:#fff}
+.qa-b{padding:0 60px 24px 24px}
+.qa-b p{font-size:.97rem}
+
+/* ---------- CONTATO ---------- */
+.contact{
+  background:linear-gradient(165deg,var(--navy-d) 0%,var(--navy) 60%,#1D2D64 100%);
+}
+/* linha do e-mail sob o hed da seção: fica em Poppins como o resto do
+   corpo, não é hed */
+.ct-alt{margin-top:18px;color:rgba(255,255,255,.8);font-size:.98rem}
+.ct-alt a{color:#fff;font-weight:700;overflow-wrap:anywhere;
+  border-bottom:1px solid rgba(110,193,228,.55)}
+.ct-alt a:hover{color:var(--sky);border-bottom-color:var(--sky)}
+
+/* stretch: o mapa ocupa a coluna inteira da direita e acompanha
+   a altura do formulário, sem card de informações em cima */
+.ct-grid{display:grid;grid-template-columns:1.12fr .88fr;gap:26px;align-items:stretch}
+.ct-form-wrap{background:#fff;border-radius:var(--r-l);padding:clamp(28px,3.2vw,44px);
+  box-shadow:0 24px 62px rgba(6,11,30,.26)}
+
+.fld{margin-bottom:18px}
+.fld label{display:block;font-size:.77rem;font-weight:700;color:var(--ink);
+  letter-spacing:.09em;text-transform:uppercase;margin-bottom:8px}
+.opt{color:var(--mute);font-weight:400;text-transform:none;letter-spacing:0}
+.fld input,.fld select,.fld textarea{
+  width:100%;font-family:inherit;font-size:1rem;color:var(--ink);
+  padding:15px 16px;background:#fff;border:1.5px solid var(--line);border-radius:var(--r-s);
+  transition:border-color .16s ease,box-shadow .16s ease;
+}
+.fld textarea{resize:vertical;min-height:108px}
+.fld select{appearance:none;cursor:pointer;padding-right:44px;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%238A94A8' stroke-width='2.4'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:right 15px center;background-size:18px}
+.fld input:focus,.fld select:focus,.fld textarea:focus{
+  outline:none;border-color:var(--royal);box-shadow:0 0 0 3px rgba(37,99,201,.13)}
+.fld input::placeholder,.fld textarea::placeholder{color:#AEB6C6}
+.fld-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.er{display:none;margin-top:7px;font-size:.8rem;font-weight:600;color:var(--err)}
+.fld.bad .er{display:block}
+.fld.bad input,.fld.bad select{border-color:var(--err)}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+/* painel de sucesso, compartilhado pelos dois formulários */
+.qform-done{text-align:center;padding:30px 6px}
+.qd-check{display:grid;place-items:center;width:66px;height:66px;margin:0 auto 20px;
+  border-radius:50%;background:rgba(44,175,34,.12)}
+.qd-check svg{width:30px;height:30px;fill:none;stroke:var(--acc);stroke-width:3;
+  stroke-linecap:round;stroke-linejoin:round}
+.qform-done h3{margin-bottom:10px;color:var(--navy);font-size:1.4rem}
+.qform-done p{margin-bottom:22px}
+.qform-status{margin-top:12px;font-size:.87rem;font-weight:600;color:var(--err);text-align:center}
+.qform-status:empty{display:none}
+.hero-form .qform-done .btn-line{color:var(--navy);border-color:var(--line)}
+.hero-form .qform-done .btn-line:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+
+/* ---------- MAPA DA ÁREA DE ATENDIMENTO ---------- */
+/* a altura vem do grid (align-items:stretch); o canvas é absoluto porque
+   o Leaflet precisa de altura resolvida no container onde ele monta */
+.ct-map{
+  position:relative;overflow:hidden;min-height:480px;
+  border-radius:var(--r-l);
+  border:1px solid rgba(255,255,255,.16);background:var(--navy-d);
+}
+#ct-map-canvas{position:absolute;inset:0;background:var(--navy-d)}
+/* fallback quando o Leaflet não carrega */
+#ct-map-canvas iframe{
+  display:block;width:100%;height:100%;border:0;
+  filter:grayscale(.55) contrast(1.02);
+}
+
+/* tema escuro do Leaflet, alinhado ao navy da seção */
+.leaflet-container{background:var(--navy-d);font-family:inherit}
+.leaflet-control-attribution{
+  background:rgba(11,18,45,.72)!important;color:#8FA0C6!important;font-size:.62rem}
+.leaflet-control-attribution a{color:var(--sky)!important}
+.leaflet-bar a,.leaflet-bar a:hover{
+  background:rgba(11,18,45,.88);color:#fff;border-bottom-color:rgba(255,255,255,.14)}
+.leaflet-bar a:hover{background:var(--royal)}
+
+/* marcador: ponto + rótulo da cidade, sem a caixa branca padrão do divIcon */
+.mk{background:transparent;border:0}
+.mk-dot{display:block;width:11px;height:11px;border-radius:50%;background:var(--sky);
+  box-shadow:0 0 0 4px rgba(110,193,228,.22),0 2px 6px rgba(6,11,30,.55)}
+.mk-lbl{position:absolute;left:18px;top:-4px;white-space:nowrap;
+  font-size:.72rem;font-weight:700;color:#fff;text-shadow:0 1px 4px rgba(6,11,30,.95)}
+.mk.is-base .mk-dot{width:15px;height:15px;margin:-2px 0 0 -2px;background:var(--acc);
+  box-shadow:0 0 0 5px rgba(44,175,34,.25),0 2px 8px rgba(6,11,30,.6)}
+.mk.is-base .mk-lbl{left:21px;top:-3px;font-size:.84rem}
+
+/* sobreposições: z-index acima dos panes do mapa (400–700) */
+.ct-map-legend{
+  position:absolute;z-index:700;left:14px;top:14px;padding:10px 15px;pointer-events:none;
+  border-radius:12px;background:rgba(11,18,45,.78);border:1px solid rgba(255,255,255,.16);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+}
+.cml-title{display:block;color:var(--sky);font-size:.66rem;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase}
+.cml-sub{display:block;margin-top:3px;color:#fff;font-size:.85rem;font-weight:600}
+.ct-map-open{
+  position:absolute;z-index:700;left:14px;bottom:14px;
+  display:inline-flex;align-items:center;gap:7px;padding:10px 15px;min-height:44px;
+  border-radius:999px;background:rgba(11,18,45,.85);border:1px solid rgba(255,255,255,.18);
+  color:#fff;font-size:.76rem;font-weight:700;
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+}
+.ct-map-open svg{width:15px;height:15px;fill:var(--sky)}
+.ct-map-open:hover{background:var(--royal);border-color:var(--royal)}
+.ct-map-open:hover svg{fill:#fff}
+
+/* ---------- RODAPÉ ---------- */
+.ftr{background:var(--navy-d);color:#A9B8DA;font-size:.94rem;padding-top:70px;position:relative}
+
+/* faixa de áreas de atendimento: fecha a página antes das colunas do rodapé.
+   A linha de baixo é a divisória para o bloco de links. */
+.areas{
+  position:relative;
+  text-align:center;padding-bottom:clamp(34px,4vw,48px);margin-bottom:clamp(34px,4vw,48px);
+  border-bottom:1px solid rgba(255,255,255,.1);
+}
+/* Aqui a fantasma é menor que nas seções: o h2 da faixa também é, e no
+   corpo cheio as descendentes de "Tampa Bay" caem em cima dos chips de
+   cidade. Mais opacidade porque este é o fundo mais escuro da página. */
+.areas .ghost{
+  color:#fff;opacity:.06;
+  font-size:clamp(3.4rem,8vw,6.6rem);
+  top:0;transform:translate(-50%,-40%);
+}
+.areas h2{color:#fff;font-size:clamp(1.6rem,3vw,2.2rem);margin-bottom:10px}
+.areas-sub{
+  color:var(--sky);font-size:.8rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;margin-bottom:26px;
+}
+
+/* 3 colunas: a de áreas virou a faixa acima */
+.ftr-in{display:grid;grid-template-columns:1.7fr 1fr 1fr;gap:44px;padding-bottom:52px}
+/* logo branco aplicado direto no fundo escuro; a pílula branca que existia
+   aqui era gambiarra da versão colorida e não é mais necessária */
+.ftr-brand img{width:190px;margin-bottom:20px}
+.ftr-brand > p{max-width:32ch;font-size:.92rem;margin-bottom:22px}
+.ftr-contact{list-style:none}
+.ftr-contact li{display:flex;align-items:center;gap:12px;margin-bottom:13px}
+.fi-ico{display:grid;place-items:center;width:36px;height:36px;flex-shrink:0;
+  border-radius:50%;background:rgba(41,169,224,.18);border:1px solid rgba(41,169,224,.42)}
+.fi-ico svg{width:16px;height:16px;fill:var(--sky)}
+.ftr-contact a{color:#fff;font-weight:700;font-size:1.02rem}
+/* o e-mail tem 31 caracteres e a coluna da marca é a mais estreita no
+   breakpoint de 2 colunas: menor e com quebra permitida para não vazar */
+.ftr-contact .fi-mail{font-size:.94rem;overflow-wrap:anywhere}
+
+/* rótulo de coluna, não hed: segue a mesma regra visual do .eyebrow, que
+   continua em Poppins — a Nunito em caixa alta miúda e destravada engorda demais */
+.ftr-col h4{
+  font-family:inherit;
+  color:#fff;font-size:.78rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;margin-bottom:20px;padding-bottom:12px;position:relative;
+}
+.ftr-col h4::after{
+  content:"";position:absolute;left:0;bottom:0;width:34px;height:2px;background:var(--sky);
+}
+.ftr-col ul{list-style:none}
+.ftr-col li{margin-bottom:11px}
+.ftr a{color:#A9B8DA}
+.ftr a:hover{color:var(--sky)}
+.ftr-col a{position:relative;padding-left:0;transition:padding-left .18s ease,color .18s ease}
+.ftr-col a:hover{padding-left:8px}
+
+/* pílulas clicáveis: cada cidade leva ao formulário.
+   Entram escalonadas quando a lista aparece na tela (classe .in
+   aplicada pelo IntersectionObserver em home.js). */
+.fa-list{list-style:none;display:flex;flex-wrap:wrap;justify-content:center;gap:11px}
+.fa-list li{
+  margin:0;opacity:0;transform:translateY(10px);
+  transition:opacity .45s ease,transform .45s ease;
+  transition-delay:calc(var(--i) * 70ms);
+}
+.fa-list.in li{opacity:1;transform:none}
+
+.fa-list a{
+  display:inline-flex;align-items:center;min-height:40px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.16);
+  border-radius:100px;padding:9px 19px;
+  font-size:.87rem;color:#C6D3EC;line-height:1.2;white-space:nowrap;
+  transition:background .22s ease,border-color .22s ease,color .22s ease,transform .22s ease,box-shadow .22s ease;
+}
+.fa-list a:hover{
+  background:var(--sky);border-color:var(--sky);color:#0C1330;
+  transform:translateY(-3px);
+  box-shadow:0 8px 20px rgba(41,169,224,.36);
+}
+
+.ftr-bot{background:linear-gradient(90deg,var(--sky) 0%,var(--royal) 55%,var(--navy) 100%)}
+.ftr-bot-in{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;
+  padding-top:18px;padding-bottom:18px}
+.ftr-bot p{font-size:.83rem;color:rgba(255,255,255,.88)}
+.ftr-bot strong{color:#fff}
+
+.mbar{display:none}
+
+/* ============================================================
+   RESPONSIVO
+   ============================================================ */
+@media (max-width:1080px){
+  .hero-in{grid-template-columns:1fr;gap:38px}
+  .hero-form{max-width:540px}
+  /* Empilhado o texto ocupa a largura toda, então o véu diagonal da
+     versão desktop não serve. Mas ATENÇÃO ao alpha mínimo: como o
+     degradê cobre a caixa inteira, o menor stop é o teto de visibilidade
+     da foto. Uma versão com stops de .80 a .94 apagou a foto por completo
+     no celular — nenhum pixel podia passar de 20%.
+     A saída é a mesma que a LP usa: degradê vertical de alphas baixos,
+     escuro só no topo onde está o h1, clareando até o card do formulário,
+     que é branco e opaco. A legibilidade do texto branco vem do
+     text-shadow abaixo, não de escurecer o fundo até a foto sumir. */
+  .hero::before{
+    background:linear-gradient(180deg,
+      rgba(12,18,44,.82) 0%,
+      rgba(17,25,58,.6) 42%,
+      rgba(24,35,80,.42) 100%);
+  }
+  .hero .eyebrow,
+  .hero h1,
+  .hero-sub{text-shadow:0 2px 14px rgba(6,10,28,.62)}
+  .car-track > .svc{flex:0 0 calc((100% - 26px) / 2)}
+  .car-prev{left:-10px}
+  .car-next{right:-10px}
+  /* o auto-fit do .why-grid já reflui sozinho; sem override aqui */
+  .strip{grid-template-columns:1fr 1fr;gap:18px 0}
+  .strip li:nth-child(2){border-right:0}
+  .strip li:nth-child(-n+2){border-bottom:1px solid var(--line);padding-bottom:20px}
+  .strip li:nth-child(n+3){padding-top:6px}
+  .ftr-in{grid-template-columns:1fr 1fr;gap:36px}
+}
+
+@media (max-width:900px){
+  /* abaixo de 900px volta a ser flex: só logo e hambúrguer nas pontas */
+  .hdr-in{display:flex;justify-content:space-between}
+  .nav{display:none}
+  .hdr-cta{display:none}
+  .burger{display:block}
+  /* O width:100% não é redundante com o left:0;right:0. Como filho
+     absoluto de um container flex, a gaveta resolve a largura por
+     shrink-to-fit e ignora o par left/right: ficava com a largura do
+     botão de CTA, ~252px, centralizada dentro do header.
+     O bloco contido é a caixa de padding do .hdr-in (é ele que tem
+     position:relative, herdado de .wrap), então 100% = largura da tela. */
+  .nav.open{
+    display:flex;flex-direction:column;gap:0;align-items:stretch;
+    position:absolute;left:0;top:100%;width:100%;background:#fff;
+    box-shadow:0 12px 24px rgba(17,24,47,.12);padding:6px 28px 20px;
+    max-height:calc(100vh - 70px);overflow-y:auto;
+  }
+  .nav.open a{padding:16px 0;border-bottom:1px solid var(--line);font-size:.9rem;border-radius:0}
+  .nav.open a::after{display:none}
+  /* na gaveta a pílula não cabe: item de largura total volta a marcar por cor */
+  .nav.open a.on{color:var(--royal);background:none}
+  /* CTA no fim da gaveta: sem ele o menu mobile fica só com links */
+  .nav.open .nav-cta{
+    display:flex;margin-top:16px;border-bottom:0;
+    padding:17px 24px;font-size:.8rem;color:#fff;
+  }
+  .nav.open .nav-cta:hover{color:#fff}
+
+  /* trava a rolagem do fundo enquanto a gaveta está aberta */
+  body.nav-lock{overflow:hidden}
+
+  .ct-grid{grid-template-columns:1fr}
+  /* em coluna única não há altura de formulário para acompanhar,
+     então o mapa define a própria altura */
+  .ct-map{min-height:400px}
+  /* sem espaço para a foto ao lado, o card centraliza e ocupa o painel:
+     o que sobra de foto vira moldura em volta dele */
+  .ab-photo{justify-items:center}
+  .ab-card{max-width:100%}
+  .steps{grid-template-columns:1fr}
+  /* em coluna única a ficha desce para a calha entre os cards */
+  .steps li:not(:last-child)::after{
+    right:auto;left:50%;top:auto;margin-top:0;bottom:-50px;margin-left:-24px;
+    transform:rotate(90deg)}
+  /* duas por linha: 6 e 6 dentro da grade de 12 */
+  .work-grid{grid-auto-rows:clamp(180px,26vw,240px)}
+  .work-grid figure:nth-child(n){grid-column:span 6}
+}
+
+@media (max-width:640px){
+  body{font-size:16px;padding-bottom:calc(80px + env(safe-area-inset-bottom))}
+  .wrap{padding:0 20px}
+
+  /* No celular o h2 quebra em 3-4 linhas e a fantasma, que é uma palavra
+     só, vira uma mancha no meio do bloco em vez de moldura. Menor e mais
+     apagada ela volta a ser textura. */
+  .ghost{font-size:clamp(3.2rem,15vw,4.6rem);opacity:.045}
+  .sec-head.inv .ghost,
+  .sec-photo .ghost,
+  .areas .ghost{opacity:.06}
+  .areas .ghost{font-size:clamp(2.8rem,12vw,3.8rem)}
+  .topbar .tb-msg{display:none}
+  .topbar-in{justify-content:center}
+  .brand img{width:164px}
+  .hdr-in{min-height:70px;gap:14px}
+  .nav.open{padding-left:20px;padding-right:20px}
+
+  /* fixo em 60px: o clamp do desktop parava no piso de 58px aqui, e no
+     celular esse respiro é o único espaço entre o header e o h1 */
+  .hero-in{padding-top:60px;padding-bottom:clamp(80px,14vw,110px)}
+  .hero-act{flex-direction:column}
+  .hero-act .btn{width:100%}
+  .hero-glow{width:320px;height:320px;right:-120px}
+
+  .strip-wrap{--ov:46px}
+  .strip{grid-template-columns:1fr;gap:0;padding:8px 18px}
+  .strip li{
+    border-right:0;border-bottom:1px solid var(--line);
+    padding:16px 0;gap:14px;
+  }
+  .strip li:last-child{border-bottom:0}
+  .strip li:nth-child(-n+2){padding-bottom:16px}
+  .strip li:nth-child(n+3){padding-top:16px}
+  .st-ico{width:40px;height:40px}
+  .strip strong{font-size:.98rem}
+
+  .svc-filter{display:flex;width:100%;padding:4px}
+  .sf-btn{flex:1;padding:14px 10px;font-size:.76rem}
+  .svc-tags li{font-size:.75rem;padding:5px 11px}
+  .car-track{gap:16px;padding-bottom:18px}
+  .car-track > .svc{flex:0 0 86%}
+  .car-nav{display:none} /* no toque, arrastar é mais natural que botão */
+  .why-grid{grid-template-columns:1fr}
+  .sec-cta .btn,.ab-card .btn{width:100%}
+  .hero-form{padding:24px 20px}
+
+  /* no celular o card ocupa a largura inteira, então a foto só aparece em
+     cima e embaixo dele — 14px nas laterais e 42px no topo/base. Com padding
+     igual dos quatro lados a foto virava um contorno de 14px, que lê como
+     falha de recorte, não como moldura */
+  .ab-photo{padding:42px 14px}
+  .ab-stat{width:100%;justify-content:center}
+
+  .work-grid{grid-auto-rows:150px;gap:10px}
+  .work-grid figcaption{padding:34px 14px 13px;font-size:.85rem;gap:8px;transform:none}
+  .work-grid figcaption::before{width:14px}
+  .fld-row{grid-template-columns:1fr}
+  /* 16px trava o zoom automático do iOS ao focar o campo */
+  .fld input,.fld select,.fld textarea{font-size:16px;min-height:54px}
+  .qa summary{padding:19px 54px 19px 18px;font-size:.97rem}
+  .qa-b{padding:0 50px 20px 18px}
+  /* empilha o fecho da FAQ: botão de largura total fecha melhor no celular */
+  .faq-box{flex-direction:column;align-items:flex-start;gap:16px;padding:24px 22px}
+  .faq-box .btn{width:100%}
+
+  /* metade das bolhas no celular: menos pintura por frame */
+  .bubbles i:nth-child(2n){display:none}
+
+  /* no celular o mapa é referência visual, não ferramenta de navegação */
+  .ct-map{min-height:340px}
+  .mk-lbl{font-size:.66rem}
+  .mk.is-base .mk-lbl{font-size:.76rem}
+  .ct-map-legend{left:10px;top:10px;padding:8px 12px}
+  .ct-map-open{left:10px;bottom:10px;font-size:.72rem;padding:9px 13px}
+
+  .ftr{padding-top:56px}
+  .ftr-in{grid-template-columns:1fr;gap:34px;padding-bottom:40px}
+  .ftr-bot-in{flex-direction:column;text-align:center;gap:6px}
+
+  .mbar{
+    display:grid;grid-template-columns:auto 1fr;gap:10px;
+    position:fixed;left:0;right:0;bottom:0;z-index:80;
+    padding:10px 14px calc(10px + env(safe-area-inset-bottom));
+    background:#fff;box-shadow:0 -4px 20px rgba(17,24,47,.16);
+  }
+  .mb-call{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    min-height:54px;padding:0 22px;border-radius:100px;background:var(--navy);color:#fff;
+    font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  }
+  .mb-call svg{width:18px;height:18px;fill:#fff}
+  .mb-cta{
+    display:flex;align-items:center;justify-content:center;
+    min-height:54px;padding:0 12px;border-radius:100px;background:var(--acc);color:#fff;
+    font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-align:center;
+  }
+  .mb-call:hover,.mb-cta:hover{color:#fff}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
