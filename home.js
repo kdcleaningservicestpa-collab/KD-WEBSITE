@@ -26,7 +26,9 @@ var CONFIG = {
   endpoint:       'https://api.web3forms.com/submit',
   accessKey:      '93b640b5-7e6c-40f6-88d2-9d6d3dc08f81',
   thanksUrl:      '/thanks/',   // vazio = volta a mostrar o painel inline
-  alsoOpenWhatsApp: false
+  alsoOpenWhatsApp: false,
+  // cópia do lead para o Make; mesma URL em script.js e estimate.js
+  webhookUrl:     'https://hook.us2.make.com/uj8xu8klbwka1mdommvl8s1jxfouk9er'
 };
 
 (function () {
@@ -466,6 +468,23 @@ var CONFIG = {
       }, d);
     }
 
+    /* Cópia do lead para o webhook do Make, em paralelo ao Web3Forms.
+       Não decide nada: se o Make cair, o e-mail continua chegando.
+       sendBeacon + form-urlencoded de propósito — é requisição "simples",
+       sem preflight de CORS, e o navegador entrega mesmo depois do
+       redirect para /thanks/, que um fetch comum cancelaria. */
+    function sendHook(d) {
+      if (!CONFIG.webhookUrl) return;
+      var body = new URLSearchParams();
+      Object.keys(d).forEach(function (k) { body.append(k, d[k]); });
+      try {
+        if (navigator.sendBeacon && navigator.sendBeacon(CONFIG.webhookUrl, body)) return;
+      } catch (err) {}
+      try {
+        fetch(CONFIG.webhookUrl, { method: 'POST', mode: 'no-cors', keepalive: true, body: body });
+      } catch (err) {}
+    }
+
     function waLink(d) {
       var l = [
         'New cleaning quote request from the website',
@@ -488,6 +507,7 @@ var CONFIG = {
       if (!validate()) return;
 
       var data = collect();
+      sendHook(data);
       submit.disabled = true;
       submit.textContent = 'Sending...';
 
