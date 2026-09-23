@@ -28,7 +28,7 @@ var CONFIG = {
   thanksUrl:      '/thanks/',   // vazio = volta a mostrar o painel inline
   alsoOpenWhatsApp: false,
   // cópia do lead para o Make; mesma URL em script.js e estimate.js
-  webhookUrl:     'https://hook.us2.make.com/uj8xu8klbwka1mdommvl8s1jxfouk9er'
+  webhookUrl:     'https://hook.us2.make.com/g6asyii26xloxrptsvma8j6lrmflou59'
 };
 
 (function () {
@@ -354,6 +354,8 @@ var CONFIG = {
     name:    { msg: 'Please enter your name.',                     ok: function (v) { return v.trim().length >= 2; } },
     phone:   { msg: 'Please enter a valid 10 digit phone number.', ok: function (v) { return v.replace(/\D/g, '').length === 10; } },
     zip:     { msg: 'Please enter your 5 digit ZIP code.',         ok: function (v) { return /^\d{5}$/.test(v); } },
+    // opcional: vazio passa, preenchido tem que ter cara de e-mail
+    email:   { msg: 'Please check your email address.',            ok: function (v) { v = v.trim(); return !v || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); } },
     service: { msg: 'Please select a service.',                    ok: function (v) { return v !== ''; } }
   };
 
@@ -451,6 +453,8 @@ var CONFIG = {
         page_url: window.location.href
       };
       if (zip) d.zip = zip.value.trim();
+      var mail = field('email');
+      if (mail && mail.value.trim()) d.email = mail.value.trim();
       var msg = form.querySelector('[name="message"]');
       if (msg) d.message = msg.value.trim();
       return d;
@@ -494,6 +498,7 @@ var CONFIG = {
         'Service: ' + d.service
       ];
       if (d.zip) l.push('ZIP: ' + d.zip);
+      if (d.email) l.push('Email: ' + d.email);
       if (d.message) l.push('Details: ' + d.message);
       return 'https://wa.me/' + CONFIG.whatsappNumber + '?text=' + encodeURIComponent(l.join('\n'));
     }

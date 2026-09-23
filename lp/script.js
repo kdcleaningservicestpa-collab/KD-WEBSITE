@@ -34,7 +34,7 @@ var CONFIG = {
   thanksUrl:      '/thanks/',      // vazio = volta a mostrar o painel inline
   alsoOpenWhatsApp: false,         // o redirect substituiu; WhatsApp só em falha
   // cópia do lead para o Make; mesma URL em home.js e estimate.js
-  webhookUrl:     'https://hook.us2.make.com/uj8xu8klbwka1mdommvl8s1jxfouk9er'
+  webhookUrl:     'https://hook.us2.make.com/g6asyii26xloxrptsvma8j6lrmflou59'
 };
 
 (function () {
@@ -89,7 +89,7 @@ var CONFIG = {
      Guarda em sessionStorage (morre quando fecha a aba) e limpa no envio.
      ============================================================ */
   var STORE_KEY = 'kd_form01';
-  var SAVE_FIELDS = ['f-name', 'f-phone', 'f-zip', 'f-beds', 'f-baths', 'f-notes'];
+  var SAVE_FIELDS = ['f-name', 'f-phone', 'f-email', 'f-zip', 'f-beds', 'f-baths', 'f-notes'];
 
   function saveDraft() {
     try {
@@ -167,6 +167,8 @@ var CONFIG = {
     'f-name':  { msg: 'Please tell us your first name.',           test: function (v) { return v.trim().length >= 2; } },
     'f-phone': { msg: 'Please enter a valid 10 digit phone number.', test: function (v) { return v.replace(/\D/g, '').length === 10; } },
     'f-zip':   { msg: 'Please enter your 5 digit ZIP code.',       test: function (v) { return /^\d{5}$/.test(v); } },
+    // opcional: vazio passa, preenchido tem que ter cara de e-mail
+    'f-email': { msg: 'Please check your email address.',          test: function (v) { v = v.trim(); return !v || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); } },
     'f-beds':  { msg: 'Please select the number of bedrooms.',     test: function (v) { return v !== ''; } },
     'f-baths': { msg: 'Please select the number of bathrooms.',    test: function (v) { return v !== ''; } }
   };
@@ -182,7 +184,7 @@ var CONFIG = {
   // quais campos pertencem a cada passo
   var STEP_FIELDS = {
     1: ['service', 'f-beds', 'f-baths', 'f-zip'],
-    2: ['f-name', 'f-phone']
+    2: ['f-name', 'f-phone', 'f-email']
   };
 
   function validateStep(n) {
@@ -280,6 +282,7 @@ var CONFIG = {
     return {
       first_name: document.getElementById('f-name').value.trim(),
       phone:      document.getElementById('f-phone').value.trim(),
+      email:      document.getElementById('f-email').value.trim(),
       zip:        document.getElementById('f-zip').value.trim(),
       service:    value,
       bedrooms:   document.getElementById('f-beds').value,
@@ -332,6 +335,7 @@ var CONFIG = {
       'Bedrooms: ' + d.bedrooms,
       'Bathrooms: ' + d.bathrooms
     ];
+    if (d.email) lines.push('Email: ' + d.email);
     if (d.notes) lines.push('Notes: ' + d.notes);
     lines.push('', d.service === 'Regular Cleaning'
       ? 'Offer: 10% off first regular cleaning'

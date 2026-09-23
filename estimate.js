@@ -21,7 +21,7 @@
     thanksUrl:      '/thanks/',   // vazio = volta a mostrar o painel inline
     alsoOpenWhatsApp: false,
     // cópia do lead para o Make; mesma URL em script.js e home.js
-    webhookUrl:     'https://hook.us2.make.com/uj8xu8klbwka1mdommvl8s1jxfouk9er'
+    webhookUrl:     'https://hook.us2.make.com/g6asyii26xloxrptsvma8j6lrmflou59'
   };
 
   /* chave própria de rascunho. A LP usa "kd_form01" e as duas páginas
@@ -282,6 +282,7 @@
     l.push('Service: ' + d.service);
     if (d.frequency) l.push('Frequency: ' + d.frequency);
     if (d.zip) l.push('ZIP: ' + d.zip);
+    if (d.email) l.push('Email: ' + d.email);
     if (d.message) l.push('Details: ' + d.message);
     return 'https://wa.me/' + CONFIG.whatsappNumber + '?text=' + encodeURIComponent(l.join('\n'));
   }
